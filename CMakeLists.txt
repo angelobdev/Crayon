@@ -17,18 +17,28 @@ project (Crayon VERSION 1.0.0)
 add_library(Crayon STATIC 	
 	"src/Crayon.h" # File to be included inside projects
 	
-	"src/Crayon/Application.h"
-	"src/Crayon/Application.cpp"
-	
-	"src/Crayon/EntryPoint.h"
-	
-	"src/Crayon/Core.h"
+	 "src/Crayon/Core/Base.h"
 
-	"src/Crayon/Logger.h" 
-	"src/Crayon/Logger.cpp"
+	"src/Crayon/Core/Application.h"
+	"src/Crayon/Core/Application.cpp"
+	
+	"src/Crayon/Core/EntryPoint.h"
 
-	 "src/Crayon/Events/Event.h"
+	"src/Crayon/Core/Logger.h" 
+	"src/Crayon/Core/Logger.cpp"
+
+	"src/Crayon/Core/Events.h"
+	
+	"src/Crayon/Events/Event.h"
+	"src/Crayon/Events/Event.cpp"
+	"src/Crayon/Events/KeyEvent.h" 
+	"src/Crayon/Events/MouseEvent.h" 
+	"src/Crayon/Events/WindowEvent.h"   
+	
+	"src/Crayon/Core/Window.h"
+	"src/Crayon/Core/Window.cpp"
 )
+
 target_include_directories(Crayon PUBLIC "src")
 target_precompile_headers(Crayon PUBLIC  "src/crypch.h")
 
@@ -38,6 +48,18 @@ set(CRAYON_VENDOR_DIR "vendor")
 # spdlog
 set(SPDLOG_DIR "${CRAYON_VENDOR_DIR}/spdlog")
 target_include_directories(Crayon PUBLIC "${SPDLOG_DIR}/include")
+
+# glfw
+set(GLFW_DIR "${CRAYON_VENDOR_DIR}/glfw")
+add_subdirectory("${GLFW_DIR}")
+target_include_directories(Crayon PUBLIC "${GLFW_DIR}/include")
+target_link_libraries(Crayon PRIVATE "glfw")
+
+# glad
+set(GLAD_DIR "${CRAYON_VENDOR_DIR}/glad")
+add_subdirectory("${GLAD_DIR}")
+target_include_directories(Crayon PUBLIC "${GLAD_DIR}/include")
+target_link_libraries(Crayon PRIVATE "glad")
 
 # ----- Examples -----
 option(CRAYON_BUILD_EXAMPLES "Crayon Build Examples" ON) # TODO test

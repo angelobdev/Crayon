@@ -3,9 +3,9 @@
 class Sandbox : public Crayon::Application
 {
 public:
-	Sandbox()
+	Sandbox() : Application("Sandbox", 800, 600)
 	{
-		std::cout << "crypch.h works!\n";
+		
 	}
 
 	~Sandbox() 

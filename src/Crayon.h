@@ -1,8 +1,8 @@
 #pragma once
 
 // FOR USE IN PROJECTS
-#include "Crayon/Application.h"
+#include "Crayon/Core/Application.h"
 
 // ---- ENTRY POINT ----
-#include "Crayon/EntryPoint.h"
+#include "Crayon/Core/EntryPoint.h"
 // ---------------------
