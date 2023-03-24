@@ -18,7 +18,3 @@
 #include <stack>
 #include <unordered_set>
 #include <unordered_map>
-
-#ifdef _WIN32
-#include <Windows.h>
-#endif

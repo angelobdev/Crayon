@@ -12,11 +12,10 @@ namespace Crayon
 
 	public:
 		Event() : m_IsNull(true) {}
-		~Event() {}
+		~Event() = default;
 
-		virtual std::string GetName() const { return "Null"; }
-
-		bool IsNull() const { return m_IsNull; }
+		[[nodiscard]] virtual std::string GetName() const { return "Null"; }
+		[[nodiscard]] bool IsNull() const { return m_IsNull; }
 	};
 
 	// EVENT DISPATCHER CLASS
@@ -29,7 +28,7 @@ namespace Crayon
 		static void Dispatch(Event* event);
 		static Event* Retrieve();
 
-		static int GetQueueSize() { return s_Events.size(); }
+		static int GetQueueSize() { return static_cast<int>(s_Events.size()); }
 	};
 
 	inline std::ostream& operator<< (std::ostream& os, const Event& event)

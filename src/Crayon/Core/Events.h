@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 // Include file for Event System
 #include "Crayon/Events/Event.h"
