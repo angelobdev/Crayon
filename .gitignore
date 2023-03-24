@@ -1,6 +1,8 @@
 # Directories
 .vs/
 build/
+
+.idea/
 cmake-build-debug/
 
 # Files
