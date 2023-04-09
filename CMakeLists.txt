@@ -44,7 +44,7 @@ add_library(Crayon STATIC
         "src/Crayon/ImGui/imgui_impl_opengl3.h"
         "src/Crayon/ImGui/imgui_impl_opengl3_loader.h"
 
-        src/Crayon/ImGui/ImGuiRenderer.cpp src/Crayon/ImGui/ImGuiRenderer.h)
+        src/Crayon/ImGui/ImGuiRenderer.cpp src/Crayon/ImGui/ImGuiRenderer.h src/Crayon/Core/Input.h src/Crayon/Core/Input.cpp)
 
 target_include_directories(Crayon PUBLIC "src")
 target_precompile_headers(Crayon PUBLIC "src/crypch.h")

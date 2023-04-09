@@ -21,19 +21,9 @@ namespace Crayon
 
         // Input
 
-        virtual void OnKeyTouched(Key k)
-        {
-            if (k == GLFW_KEY_F11)
-                this->m_Window->ToggleFullscreen();
-        }
-
-        virtual void OnKeyReleased(Key k) {}
-
-        virtual void OnKeyPressed(Key k) {}
-
-        virtual void OnMouseButtonClicked(MouseButton button) {}
-
-        virtual void OnMouseButtonReleased(MouseButton button) {}
+//        virtual void OnMouseButtonClicked(MouseButton button) {}
+//
+//        virtual void OnMouseButtonReleased(MouseButton button) {}
 
         virtual void OnMouseMoved(double x, double y) {}
 

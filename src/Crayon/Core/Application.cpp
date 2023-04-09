@@ -1,57 +1,45 @@
 #include "crypch.h"
 #include "Application.h"
+#include "Input.h"
 
-namespace Crayon {
+namespace Crayon
+{
     Application::Application(const char *title, int width, int height)
-            : m_Window(std::make_shared<Window>(title, width, height)) {
+            : m_Window(std::make_shared<Window>(title, width, height))
+    {
 
     }
 
     Application::~Application() = default;
 
-    void Application::OnEvent(Event *event) {
+    void Application::OnEvent(Event *event)
+    {
         // ----- HANDLING CALLBACKS -----
         // CRAYON_CORE_WARN("Retrieved event: {}", event->GetName());
 
         // Keyboard
-        if (auto *keyEvent = dynamic_cast<KeyEvent *>(event)) {
-            switch (keyEvent->GetKeyState()) {
-                case KeyState::Touched:
-                    this->OnKeyTouched(keyEvent->GetKey());
-                    break;
-                case KeyState::Pressed:
-                    this->OnKeyPressed(keyEvent->GetKey());
-                    break;
-                case KeyState::Released:
-                    this->OnKeyReleased(keyEvent->GetKey());
-                    break;
-                case NoKState:
-                    break;
-            }
+        if (auto *keyEvent = dynamic_cast<KeyEvent *>(event))
+        {
+            Input::KeyCallback(keyEvent->GetKey(), keyEvent->GetKeyState());
         }
 
         // Mouse Button
-        if (auto *mbEvent = dynamic_cast<MouseButtonEvent *>(event)) {
-            switch (mbEvent->GetButtonState()) {
-                case MouseButtonState::Clicked:
-                    this->OnMouseButtonClicked(mbEvent->GetButton());
-                    break;
-                case MouseButtonState::Unclicked:
-                    this->OnMouseButtonReleased(mbEvent->GetButton());
-                    break;
-                case NoBState:
-                    break;
-            }
+        if (auto *mbEvent = dynamic_cast<MouseButtonEvent *>(event))
+        {
+            Input::MouseButtonCallback(mbEvent->GetButton(), mbEvent->GetButtonState());
         }
 
         // Mouse Movement
-        if (auto *mmEvent = dynamic_cast<MouseMovedEvent *>(event)) {
+        if (auto *mmEvent = dynamic_cast<MouseMovedEvent *>(event))
+        {
             this->OnMouseMoved(mmEvent->GetX(), mmEvent->GetY());
         }
 
         // Window Events
-        if (auto *wdEvent = dynamic_cast<WindowEvent *>(event)) {
-            switch (wdEvent->GetWindowState()) {
+        if (auto *wdEvent = dynamic_cast<WindowEvent *>(event))
+        {
+            switch (wdEvent->GetWindowState())
+            {
                 case WindowState::Closed:
                     this->OnWindowClosed();
                     break;
@@ -76,18 +64,27 @@ namespace Crayon {
 
     }
 
-    void Application::HandleEvents() {
+    void Application::HandleEvents()
+    {
         Event *lastEvent = EventDispatcher::Retrieve();
         if (lastEvent != nullptr) { OnEvent(lastEvent); }
         delete lastEvent;
     }
 
-    void Application::Run() {
+    void Application::Run()
+    {
         glClearColor(0.2f, 0.4f, 0.6f, 1.0f);
 
-        while (!m_Window->ShouldClose()) {
+        while (!m_Window->ShouldClose())
+        {
             // Handling Events
             this->HandleEvents();
+
+            if (Input::GetKey(GLFW_KEY_ESCAPE) == KeyState::Touched)
+                CRAYON_CORE_TRACE("Touched ESC");
+
+            if (Input::GetKey(GLFW_KEY_LEFT_CONTROL) == KeyState::Touched && Input::GetKey(GLFW_KEY_S) == KeyState::Touched)
+                CRAYON_CORE_TRACE("Touched CTRL + S");
 
             // Update
 
