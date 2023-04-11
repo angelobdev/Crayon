@@ -2,14 +2,15 @@
 
 #include "Base.h"
 #include "Window.h"
+#include "ImGui/ImGuiController.h"
 
 namespace Crayon
 {
     class Application
     {
-    private:
-        std::shared_ptr<Window> m_Window;
 
+    protected:
+        std::shared_ptr<Window> m_Window;
     public:
         Application(const char *title, int width, int height);
 
@@ -27,7 +28,11 @@ namespace Crayon
 
         virtual void OnWindowClosed() {}
 
-        virtual void OnWindowResized(int width, int height) {}
+        virtual void OnWindowResized(int width, int height)
+        {
+            glViewport(0, 0, width, height);
+            this->Render();
+        }
 
         virtual void OnWindowMinimized() {}
 

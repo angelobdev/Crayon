@@ -21,6 +21,19 @@ public:
     void Render() override
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        Crayon::ImGuiController::NewFrame();
+
+        ImGui::ShowDemoWindow();
+
+        ImGui::ShowAboutWindow();
+
+        ImGui::Begin("Custom window");
+        if(ImGui::Button("Ciao")) CRAYON_TRACE("Clicked button");
+        ImGui::End();
+
+        Crayon::ImGuiController::Draw();
+
     }
 
 };

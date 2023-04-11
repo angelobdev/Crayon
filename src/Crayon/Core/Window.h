@@ -51,6 +51,8 @@ namespace Crayon
             return height;
         }
 
+        GLFWwindow *GetPointer() { return m_Window; }
+
     private:
         static void GetCenteredPosition(int width, int height, int *xPos, int *yPos);
 

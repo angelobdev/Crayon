@@ -7,7 +7,7 @@ namespace Crayon
     Application::Application(const char *title, int width, int height)
             : m_Window(std::make_shared<Window>(title, width, height))
     {
-
+        Crayon::ImGuiController::Initialize(m_Window.get());
     }
 
     Application::~Application() = default;
@@ -75,6 +75,7 @@ namespace Crayon
         while (!m_Window->ShouldClose())
         {
             // Handling Events
+            m_Window->PollEvents();
             this->HandleEvents();
 
             // Update
@@ -82,11 +83,11 @@ namespace Crayon
 
             // Render
             this->Render();
-
-            // Window stuff
-            m_Window->PollEvents();
             m_Window->SwapBuffers();
         }
+
+        // Terminating ImGui
+        ImGuiController::Terminate();
 
         // Dispatching remaining events
         while (EventDispatcher::GetQueueSize() > 0)

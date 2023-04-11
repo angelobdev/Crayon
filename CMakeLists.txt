@@ -38,13 +38,12 @@ add_library(Crayon STATIC
         "src/Crayon/Core/Window.h"
         "src/Crayon/Core/Window.cpp"
 
-        "src/Crayon/ImGui/imgui_impl_glfw.cpp"
-        "src/Crayon/ImGui/imgui_impl_glfw.h"
-        "src/Crayon/ImGui/imgui_impl_opengl3.cpp"
-        "src/Crayon/ImGui/imgui_impl_opengl3.h"
-        "src/Crayon/ImGui/imgui_impl_opengl3_loader.h"
+        "src/Crayon/Core/ImGui/imgui_impl_glfw.cpp"
+        "src/Crayon/Core/ImGui/imgui_impl_glfw.h"
+        "src/Crayon/Core/ImGui/imgui_impl_opengl3.cpp"
+        "src/Crayon/Core/ImGui/imgui_impl_opengl3.h"
 
-        src/Crayon/ImGui/ImGuiRenderer.cpp src/Crayon/ImGui/ImGuiRenderer.h src/Crayon/Core/Input.h src/Crayon/Core/Input.cpp)
+        src/Crayon/Core/ImGui/ImGuiController.h src/Crayon/Core/Input.h src/Crayon/Core/Input.cpp src/Crayon/Core/ImGui/ImGuiController.cpp)
 
 target_include_directories(Crayon PUBLIC "src")
 target_precompile_headers(Crayon PUBLIC "src/crypch.h")
