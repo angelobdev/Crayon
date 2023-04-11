@@ -2,13 +2,16 @@
 
 #include "Event.h"
 
-namespace Crayon {
+namespace Crayon
+{
     using Key = int;
-    enum KeyState {
-        NoKState, Touched, Pressed, Released
+    enum class KeyState
+    {
+        Null, Touched, Pressed, Released
     };
 
-    class KeyEvent : public Event {
+    class KeyEvent : public Event
+    {
     private:
         Key m_Key;
         KeyState m_KeyState;
@@ -16,17 +19,19 @@ namespace Crayon {
     public:
         KeyEvent(Key key, KeyState state) : m_Key(key), m_KeyState(state) { m_IsNull = false; }
 
-        [[nodiscard]] Key GetKey() const { return m_Key; }
+        Key GetKey() const { return m_Key; }
 
-        [[nodiscard]] KeyState GetKeyState() const { return m_KeyState; }
+        KeyState GetKeyState() const { return m_KeyState; }
 
         // Override
-        [[nodiscard]] std::string GetName() const override {
+        std::string GetName() const override
+        {
             std::string name = "Key Event: ";
             name.append("Key: ").append(std::to_string(m_Key));
             name.append(" State: ");
 
-            switch (m_KeyState) {
+            switch (m_KeyState)
+            {
                 case KeyState::Touched:
                     name.append("Touched");
                     break;
@@ -36,7 +41,7 @@ namespace Crayon {
                 case KeyState::Released:
                     name.append("Released");
                     break;
-                case NoKState:
+                case KeyState::Null:
                     break;
             }
 

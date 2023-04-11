@@ -17,15 +17,13 @@ namespace Crayon
 
         // Methods
 
+        virtual void Update() = 0;
+
+        virtual void Render() = 0;
+
         void Run();
 
-        // Input
-
-//        virtual void OnMouseButtonClicked(MouseButton button) {}
-//
-//        virtual void OnMouseButtonReleased(MouseButton button) {}
-
-        virtual void OnMouseMoved(double x, double y) {}
+        // Events
 
         virtual void OnWindowClosed() {}
 

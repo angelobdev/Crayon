@@ -2,16 +2,21 @@
 
 #include "Event.h"
 
-namespace Crayon {
+namespace Crayon
+{
     // MOUSE BUTTON EVENT CLASS
-    enum MouseButton {
-        NoButton, Left, Middle, Right
-    };
-    enum MouseButtonState {
-        NoBState, Clicked, Unclicked
+    enum class MouseButton
+    {
+        Null, Left, Middle, Right
     };
 
-    class MouseButtonEvent : public Event {
+    enum class MouseButtonState
+    {
+        Null, Pressed, Released
+    };
+
+    class MouseButtonEvent : public Event
+    {
     private:
         MouseButton m_Button;
         MouseButtonState m_ButtonState;
@@ -20,16 +25,18 @@ namespace Crayon {
         MouseButtonEvent(MouseButton button, MouseButtonState state) : m_Button(button),
                                                                        m_ButtonState(state) { m_IsNull = false; }
 
-        [[nodiscard]] MouseButton GetButton() const { return m_Button; }
+        MouseButton GetButton() const { return m_Button; }
 
-        [[nodiscard]] MouseButtonState GetButtonState() const { return m_ButtonState; }
+        MouseButtonState GetButtonState() const { return m_ButtonState; }
 
         // Override
-        [[nodiscard]] std::string GetName() const override {
+        std::string GetName() const override
+        {
             std::string name = "Mouse Button Event: ";
 
             name.append("Button: ");
-            switch (m_Button) {
+            switch (m_Button)
+            {
                 case MouseButton::Left:
                     name.append("Left");
                     break;
@@ -39,19 +46,20 @@ namespace Crayon {
                 case MouseButton::Right:
                     name.append("Right");
                     break;
-                case NoButton:
+                case MouseButton::Null:
                     break;
             }
 
             name.append("State: ");
-            switch (m_ButtonState) {
-                case MouseButtonState::Clicked:
-                    name.append("Clicked");
+            switch (m_ButtonState)
+            {
+                case MouseButtonState::Pressed:
+                    name.append("Pressed");
                     break;
-                case MouseButtonState::Unclicked:
+                case MouseButtonState::Released:
                     name.append("Released");
                     break;
-                case NoBState:
+                case MouseButtonState::Null:
                     break;
             }
 
@@ -60,19 +68,21 @@ namespace Crayon {
     };
 
     // MOUSE MOVED EVENT CLASS
-    class MouseMovedEvent : public Event {
+    class MouseMovedEvent : public Event
+    {
     private:
         double m_MouseX, m_MouseY;
 
     public:
         MouseMovedEvent(double x, double y) : m_MouseX(x), m_MouseY(y) { m_IsNull = false; }
 
-        [[nodiscard]] double GetX() const { return m_MouseX; }
+        double GetX() const { return m_MouseX; }
 
-        [[nodiscard]] double GetY() const { return m_MouseY; }
+        double GetY() const { return m_MouseY; }
 
         // Override
-        [[nodiscard]] std::string GetName() const override {
+        std::string GetName() const override
+        {
             std::string name = "Mouse Moved Event - ";
             name.append("X: ").append(std::to_string(m_MouseX))
                     .append("Y: ").append(std::to_string(m_MouseY));

@@ -15,7 +15,6 @@ namespace Crayon
     void Application::OnEvent(Event *event)
     {
         // ----- HANDLING CALLBACKS -----
-        // CRAYON_CORE_WARN("Retrieved event: {}", event->GetName());
 
         // Keyboard
         if (auto *keyEvent = dynamic_cast<KeyEvent *>(event))
@@ -32,7 +31,7 @@ namespace Crayon
         // Mouse Movement
         if (auto *mmEvent = dynamic_cast<MouseMovedEvent *>(event))
         {
-            this->OnMouseMoved(mmEvent->GetX(), mmEvent->GetY());
+            Input::MousePosCallback(mmEvent->GetX(), mmEvent->GetY());
         }
 
         // Window Events
@@ -73,23 +72,16 @@ namespace Crayon
 
     void Application::Run()
     {
-        glClearColor(0.2f, 0.4f, 0.6f, 1.0f);
-
         while (!m_Window->ShouldClose())
         {
             // Handling Events
             this->HandleEvents();
 
-            if (Input::GetKey(GLFW_KEY_ESCAPE) == KeyState::Touched)
-                CRAYON_CORE_TRACE("Touched ESC");
-
-            if (Input::GetKey(GLFW_KEY_LEFT_CONTROL) == KeyState::Touched && Input::GetKey(GLFW_KEY_S) == KeyState::Touched)
-                CRAYON_CORE_TRACE("Touched CTRL + S");
-
             // Update
+            this->Update();
 
             // Render
-            glClear(GL_COLOR_BUFFER_BIT);
+            this->Render();
 
             // Window stuff
             m_Window->PollEvents();
