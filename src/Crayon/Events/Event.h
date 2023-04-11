@@ -4,37 +4,40 @@
 
 namespace Crayon
 {
-	// BASE EVENT CLASS
-	class Event
-	{
-	protected:
-		bool m_IsNull;
+    // BASE EVENT CLASS
+    class Event
+    {
+    protected:
+        bool m_IsNull;
 
-	public:
-		Event() : m_IsNull(true) {}
-		~Event() = default;
+    public:
+        Event() : m_IsNull(true) {}
 
-		[[nodiscard]] virtual std::string GetName() const { return "Null"; }
-		[[nodiscard]] bool IsNull() const { return m_IsNull; }
-	};
+        ~Event() = default;
 
-	// EVENT DISPATCHER CLASS
-	class EventDispatcher // Todo: Maybe async
-	{
-	private:
-		static std::queue<Event*> s_Events;
+        virtual std::string GetName() const { return "Null"; }
 
-	public:
-		static void Dispatch(Event* event);
-		static Event* Retrieve();
+        bool IsNull() const { return m_IsNull; }
+    };
 
-		static int GetQueueSize() { return static_cast<int>(s_Events.size()); }
-	};
+    // EVENT DISPATCHER CLASS
+    class EventDispatcher // Todo: async
+    {
+    private:
+        static std::queue<Event *> s_Events;
 
-	inline std::ostream& operator<< (std::ostream& os, const Event& event)
-	{
-		os << event.GetName();
-		return os;
-	}
+    public:
+        static void Dispatch(Event *event);
+
+        static Event *Retrieve();
+
+        static int GetQueueSize() { return static_cast<int>(s_Events.size()); }
+    };
+
+    inline std::ostream &operator<<(std::ostream &os, const Event &event)
+    {
+        os << event.GetName();
+        return os;
+    }
 
 }

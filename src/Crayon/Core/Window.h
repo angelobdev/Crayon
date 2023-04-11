@@ -21,16 +21,13 @@ namespace Crayon
     public:
         Window(const char *title, int width, int height);
 
-        ~Window()
-        { this->Close(); }
+        ~Window() { this->Close(); }
 
         // METHODS
 
-        static void PollEvents()
-        { glfwPollEvents(); }
+        static void PollEvents() { glfwPollEvents(); }
 
-        void SwapBuffers()
-        { glfwSwapBuffers(m_Window); }
+        void SwapBuffers() { glfwSwapBuffers(m_Window); }
 
         void Close();
 
@@ -38,17 +35,16 @@ namespace Crayon
 
         // GETTERS AND SETTERS
 
-        [[nodiscard]] bool ShouldClose() const
-        { return glfwWindowShouldClose(m_Window); }
+        bool ShouldClose() const { return glfwWindowShouldClose(m_Window); }
 
-        [[nodiscard]] int GetWidth() const
+        int GetWidth() const
         {
             int width;
             glfwGetWindowSize(m_Window, &width, NULL);
             return width;
         }
 
-        [[nodiscard]] int GetHeight() const
+        int GetHeight() const
         {
             int height;
             glfwGetWindowSize(m_Window, NULL, &height);
@@ -56,7 +52,7 @@ namespace Crayon
         }
 
     private:
-        static void GetCenteredPosition(int width, int height, int *xpos, int *ypos);
+        static void GetCenteredPosition(int width, int height, int *xPos, int *yPos);
 
     };
 }

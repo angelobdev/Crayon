@@ -15,7 +15,7 @@
       "cacheVariables": {
         "CMAKE_C_COMPILER": "cl.exe",
         "CMAKE_CXX_COMPILER": "cl.exe",
-        "CRAYON_BUILD_EXAMPLES":  true // Enables Examples Build
+        "CRAYON_BUILD_EXAMPLES":  true
       },
       "condition": {
         "type": "equals",
