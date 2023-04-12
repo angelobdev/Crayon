@@ -34,18 +34,18 @@ add_library(Crayon STATIC
         src/Crayon/Core/Input.h
         src/Crayon/Core/Input.cpp
 
-        src/Crayon/Core/ImGui/imgui_impl_glfw.cpp
-        src/Crayon/Core/ImGui/imgui_impl_glfw.h
-        src/Crayon/Core/ImGui/imgui_impl_opengl3.cpp
-        src/Crayon/Core/ImGui/imgui_impl_opengl3.h
+        src/Crayon/Graphics/ImGui/imgui_impl_glfw.cpp
+        src/Crayon/Graphics/ImGui/imgui_impl_glfw.h
+        src/Crayon/Graphics/ImGui/imgui_impl_opengl3.cpp
+        src/Crayon/Graphics/ImGui/imgui_impl_opengl3.h
 
-        src/Crayon/Core/ImGui/ImGuiController.h
-        src/Crayon/Core/ImGui/ImGuiController.cpp
+        src/Crayon/Graphics/ImGui/ImGuiController.h
+        src/Crayon/Graphics/ImGui/ImGuiController.cpp
         src/Crayon/Graphics/Shader.h
         src/Crayon/Graphics/Common.h
         src/Crayon/Utilities/ResourceLoader.cpp
         src/Crayon/Utilities/ResourceLoader.h
-        )
+        src/Crayon/Graphics/VertexArray.cpp src/Crayon/Graphics/VertexArray.h src/Crayon/Graphics/VertexBuffer.cpp src/Crayon/Graphics/VertexBuffer.h src/Crayon/Utilities/GLUtils.cpp src/Crayon/Utilities/GLUtils.h src/Crayon/Graphics/IndexBuffer.cpp src/Crayon/Graphics/IndexBuffer.h src/Crayon/Graphics/Shader.cpp)
 
 target_include_directories(Crayon PUBLIC "src")
 target_precompile_headers(Crayon PUBLIC "src/crypch.h")
