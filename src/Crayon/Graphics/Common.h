@@ -56,4 +56,4 @@ static bool GLErrorLog(const char *function, const char *file, const int &line)
 #define GLCall(glFunc) \
     GLClearError();    \
     glFunc;            \
-    ASSERT(GLErrorLog(#glFunc, __FILE__, __LINE__))
+    ASSERT(GLErrorLog(#glFunc, __FILE__, __LINE__));

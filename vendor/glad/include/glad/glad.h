@@ -19,6 +19,9 @@
         https://glad.dav1d.de/#profile=core&language=c&specification=gl&loader=on&api=gl%3D3.3
 */
 
+#ifdef _WIN32
+#include <Windows.h>
+#endif
 
 #ifndef __glad_h_
 #define __glad_h_
@@ -35,6 +38,7 @@
 #ifndef APIENTRY
 #define APIENTRY
 #endif
+
 #ifndef APIENTRYP
 #define APIENTRYP APIENTRY *
 #endif

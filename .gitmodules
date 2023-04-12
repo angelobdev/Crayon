@@ -1,3 +1,7 @@
 [submodule "vendor/glfw"]
 	path = vendor/glfw
 	url = https://github.com/glfw/glfw
+[submodule "imgui"]
+	path = vendor/imgui
+	url = https://github.com/angelobdev/imgui
+	branch = docking
