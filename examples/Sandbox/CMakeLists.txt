@@ -17,9 +17,9 @@ else()
 
     add_custom_command(
         TARGET Sandbox PRE_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
         ${ASSETS_SRC_DIR}
         ${ASSETS_DST_DIR}
-        COMMENT "Creating symlink of assets folder")
+        COMMENT "Copying assets folder to binary dir")
 
 endif()
