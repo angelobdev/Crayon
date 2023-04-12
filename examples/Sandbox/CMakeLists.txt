@@ -1,9 +1,25 @@
 add_executable(Sandbox "src/Sandbox.cpp")
 target_link_libraries(Sandbox PRIVATE "Crayon")
 
-add_custom_command(
+set(ASSETS_SRC_DIR "${PROJECT_SOURCE_DIR}/examples/Sandbox/assets")
+set(ASSETS_DST_DIR "$<TARGET_FILE_DIR:Sandbox>/assets")
+
+if(UNIX)
+
+    add_custom_command(
         TARGET Sandbox PRE_BUILD
         COMMAND ${CMAKE_COMMAND} -E create_symlink
-        ${PROJECT_SOURCE_DIR}/examples/Sandbox/assets
-        $<TARGET_FILE_DIR:Sandbox>/assets
+        ${ASSETS_SRC_DIR}
+        ${ASSETS_DST_DIR}
         COMMENT "Creating symlink of assets folder")
+
+else()
+
+    add_custom_command(
+        TARGET Sandbox PRE_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${ASSETS_SRC_DIR}
+        ${ASSETS_DST_DIR}
+        COMMENT "Creating symlink of assets folder")
+
+endif()

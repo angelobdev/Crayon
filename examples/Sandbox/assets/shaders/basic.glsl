@@ -14,6 +14,6 @@ layout (location = 0) out vec4 f_Color;
 
 void main()
 {
-    f_Color = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    f_Color = vec4(0.0f, 1.0f, 1.0f, 1.0f);
 }
 //END
