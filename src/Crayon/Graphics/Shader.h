@@ -84,15 +84,15 @@ namespace Crayon
         unsigned int CompileProgram(const char *sourceCode)
         {
             // Creating program
-            uint shaderProgram = glCreateProgram();
+            unsigned int shaderProgram = glCreateProgram();
 
             // Creating Vertex Shader
-            uint vs = CompileShader(GL_VERTEX_SHADER,
+            unsigned int vs = CompileShader(GL_VERTEX_SHADER,
                                     Shader::GetShaderSourceCode(GL_VERTEX_SHADER, sourceCode).c_str());
             GLCall(glAttachShader(shaderProgram, vs));
 
             // Creating fragment shader
-            uint fs = CompileShader(GL_FRAGMENT_SHADER,
+            unsigned int fs = CompileShader(GL_FRAGMENT_SHADER,
                                     Shader::GetShaderSourceCode(GL_FRAGMENT_SHADER, sourceCode).c_str());
             GLCall(glAttachShader(shaderProgram, fs));
 
@@ -125,7 +125,7 @@ namespace Crayon
         unsigned int CompileShader(GLenum type, const char *shaderSourceCode)
         {
             // Creating shader
-            uint shader = glCreateShader(type);
+            unsigned int shader = glCreateShader(type);
             GLCall(glShaderSource(shader, 1, &shaderSourceCode, nullptr)); // Linking source code
 
             // Compiling shader
