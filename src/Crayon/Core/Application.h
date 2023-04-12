@@ -22,6 +22,8 @@ namespace Crayon
 
         virtual void Render() = 0;
 
+        virtual void RenderUI() {}
+
         void Run();
 
         // Events

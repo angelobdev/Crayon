@@ -81,8 +81,14 @@ namespace Crayon
             // Update
             this->Update();
 
-            // Render
+            // Rendering
             this->Render();
+
+            // UI (ImGui)
+            Crayon::ImGuiController::NewFrame();
+            this->RenderUI();
+            Crayon::ImGuiController::Draw();
+
             m_Window->SwapBuffers();
         }
 

@@ -5,7 +5,8 @@
 
 // extern Crayon::Application *Crayon::CreateApplication();
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     Crayon::Logger::Initialize();
 
     CRAYON_CORE_INFO("Welcome to Crayon Engine!");

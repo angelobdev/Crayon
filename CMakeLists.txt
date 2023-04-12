@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSIONS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_RESOU)
+
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
     cmake_policy(SET CMP0141 NEW)
@@ -15,35 +17,43 @@ endif ()
 project(Crayon VERSION 1.0.0)
 
 add_library(Crayon STATIC
-        "src/Crayon.h" # File to be included inside projects
+        src/Crayon.h # File to be included inside projects
 
-        "src/Crayon/Core/Base.h"
+        src/Crayon/Core/Base.h
 
-        "src/Crayon/Core/Application.h"
-        "src/Crayon/Core/Application.cpp"
+        src/Crayon/Core/Application.h
+        src/Crayon/Core/Application.cpp
 
-        "src/Crayon/Core/EntryPoint.h"
+        src/Crayon/Core/EntryPoint.h
 
-        "src/Crayon/Core/Logger.h"
-        "src/Crayon/Core/Logger.cpp"
+        src/Crayon/Core/Logger.h
+        src/Crayon/Core/Logger.cpp
 
-        "src/Crayon/Core/Events.h"
+        src/Crayon/Events/Event.h
+        src/Crayon/Events/Event.cpp
+        src/Crayon/Events/KeyEvent.h
+        src/Crayon/Events/MouseEvent.h
+        src/Crayon/Events/WindowEvent.h
+        src/Crayon/Core/Events.h
 
-        "src/Crayon/Events/Event.h"
-        "src/Crayon/Events/Event.cpp"
-        "src/Crayon/Events/KeyEvent.h"
-        "src/Crayon/Events/MouseEvent.h"
-        "src/Crayon/Events/WindowEvent.h"
+        src/Crayon/Core/Window.h
+        src/Crayon/Core/Window.cpp
 
-        "src/Crayon/Core/Window.h"
-        "src/Crayon/Core/Window.cpp"
+        src/Crayon/Core/Input.h
+        src/Crayon/Core/Input.cpp
 
-        "src/Crayon/Core/ImGui/imgui_impl_glfw.cpp"
-        "src/Crayon/Core/ImGui/imgui_impl_glfw.h"
-        "src/Crayon/Core/ImGui/imgui_impl_opengl3.cpp"
-        "src/Crayon/Core/ImGui/imgui_impl_opengl3.h"
+        src/Crayon/Core/ImGui/imgui_impl_glfw.cpp
+        src/Crayon/Core/ImGui/imgui_impl_glfw.h
+        src/Crayon/Core/ImGui/imgui_impl_opengl3.cpp
+        src/Crayon/Core/ImGui/imgui_impl_opengl3.h
 
-        src/Crayon/Core/ImGui/ImGuiController.h src/Crayon/Core/Input.h src/Crayon/Core/Input.cpp src/Crayon/Core/ImGui/ImGuiController.cpp)
+        src/Crayon/Core/ImGui/ImGuiController.h
+        src/Crayon/Core/ImGui/ImGuiController.cpp
+        src/Crayon/Graphics/Shader.h
+        src/Crayon/Graphics/Common.h
+        src/Crayon/Utilities/ResourceLoader.cpp
+        src/Crayon/Utilities/ResourceLoader.h
+        )
 
 target_include_directories(Crayon PUBLIC "src")
 target_precompile_headers(Crayon PUBLIC "src/crypch.h")
@@ -72,6 +82,10 @@ set(IMGUI_DIR "${CRAYON_VENDOR_DIR}/imgui")
 add_subdirectory("${IMGUI_DIR}")
 target_include_directories(Crayon PUBLIC "${IMGUI_DIR}")
 target_link_libraries(Crayon PRIVATE "imgui")
+
+# debugbreak
+set(DBGBRK_DIR "${CRAYON_VENDOR_DIR}/debugbreak")
+target_include_directories(Crayon PUBLIC "${DBGBRK_DIR}/include")
 
 # ----- Examples -----
 option(CRAYON_BUILD_EXAMPLES "Crayon Build Examples" ON) # TODO test
