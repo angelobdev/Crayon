@@ -25,13 +25,13 @@ private:
     Crayon::VertexArray vertexArray = Crayon::VertexArray();
     Crayon::VertexBuffer vertexBuffer = Crayon::VertexBuffer(vertices, {{3, GL_FLOAT}});
     Crayon::IndexBuffer indexBuffer = Crayon::IndexBuffer(indices);
-    Crayon::Shader shader = Crayon::Shader(Crayon::ResourceLoader::LoadFileAsString("assets/shaders/basic.glsl", true));
+    Crayon::Shader shader = Crayon::Shader("assets/shaders/basic.glsl", true);
 
 public:
     Sandbox() : Application("Sandbox", 800, 600)
     {
         GLCall(glClearColor(0.2f, 0.4f, 0.6f, 1.0f));
-        vertexArray.LinkBuffer(vertexBuffer);
+        vertexArray.LinkBuffer(vertexBuffer, {indexBuffer});
     }
 
     ~Sandbox() override
@@ -59,13 +59,13 @@ public:
     void RenderUI() override
     {
         // UI RENDERING
-//        ImGui::ShowDemoWindow();
-//
-//        ImGui::ShowAboutWindow();
-//
-//        ImGui::Begin("Custom window");
-//        if (ImGui::Button("Ciao")) CRAYON_TRACE("Clicked button");
-//        ImGui::End();
+        ImGui::ShowDemoWindow();
+
+        ImGui::ShowAboutWindow();
+
+        ImGui::Begin("Custom window");
+        if (ImGui::Button("Ciao")) CRAYON_TRACE("Clicked button");
+        ImGui::End();
     }
 
 };

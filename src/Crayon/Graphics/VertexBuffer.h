@@ -1,5 +1,14 @@
 #pragma once
 
+/**************************************************************************************************
+ * @file JAGL/Graphics/VertexBuffer.h
+ * @brief VertexBuffer class header file.
+ * @details This file implements the VertexBuffer wrapper class structure.
+ **************************************************************************************************
+ * @author angelobdev
+ * @date 01-27-2023
+ ***************************************************************************************************/
+
 #include "Common.h"
 
 namespace Crayon
@@ -11,6 +20,7 @@ namespace Crayon
         bool normalized = false;
     };
 
+    /// @brief GL_ARRAY_BUFFER wrapper class.
     class VertexBuffer
     {
     private:
@@ -19,10 +29,15 @@ namespace Crayon
         unsigned int m_Stride;
 
     public:
+        /// @brief Generates the VertexBuffer based on a std::vector of float values
+        /// @param vertices Array of indices
         VertexBuffer(const std::vector<float> &vertices, const std::vector<VertexLayoutElement> &LOEs);
         ~VertexBuffer() {}
 
+        /// @brief Binds the current VertexBuffer
         void Bind() const;
+
+        /// @brief Unbinds the current VertexBuffer
         void Unbind() const;
 
         // GETTERS AND SETTERS

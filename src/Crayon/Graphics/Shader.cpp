@@ -1,21 +1,97 @@
 #include "Shader.h"
+#include "Crayon/Utilities/ResourceLoader.h"
 
 namespace Crayon
 {
-    Shader::Shader(const std::string &sourceCode)
+    Shader::Shader(const std::string &sourceCode, bool isPath)
     {
-        this->m_ProgramID = CompileProgram(sourceCode.c_str());
+        if (isPath)
+        {
+            std::string fileContent = ResourceLoader::LoadFileAsString(sourceCode);
+            this->m_Program = Shader::CompileProgram(fileContent.c_str());
+        } else
+        {
+            this->m_Program = Shader::CompileProgram(sourceCode.c_str());
+        }
     }
+
+    Shader::~Shader()
+    {
+        GLCall(glDeleteProgram(this->m_Program));
+    }
+
+    // UNIFORMS
+
+    int Shader::GetUniformLocation(const std::string &name) const
+    {
+        this->Bind();
+        int location = glGetUniformLocation(this->m_Program, name.c_str());
+        if (location == -1)
+            spdlog::error("Unable to find uniform: {}", name);
+        return location;
+    }
+
+    void Shader::SetUniform1i(const std::string &name, const int data) const
+    {
+        int location = this->GetUniformLocation(name);
+        glUniform1i(location, data);
+    }
+
+    void Shader::SetUniform1f(const std::string &name, const float &data) const
+    {
+        int location = this->GetUniformLocation(name);
+        glUniform1f(location, data);
+    }
+
+    void Shader::SetUniform2f(const std::string &name, const glm::vec2 &data) const
+    {
+        int location = this->GetUniformLocation(name);
+        glUniform2f(location, data.x, data.y);
+    }
+
+    void Shader::SetUniform3f(const std::string &name, const glm::vec3 &data) const
+    {
+        int location = this->GetUniformLocation(name);
+        glUniform3f(location, data.x, data.y, data.z);
+    }
+
+    void Shader::SetUniform4f(const std::string &name, const glm::vec4 &data) const
+    {
+        int location = this->GetUniformLocation(name);
+        glUniform4f(location, data.x, data.y, data.z, data.w);
+    }
+
+    void Shader::SetUniformMatrix2f(const std::string &name, const glm::mat2 &data) const
+    {
+        int location = this->GetUniformLocation(name);
+        glUniformMatrix2fv(location, 1, GL_FALSE, &data[0][0]);
+    }
+
+    void Shader::SetUniformMatrix3f(const std::string &name, const glm::mat3 &data) const
+    {
+        int location = this->GetUniformLocation(name);
+        glUniformMatrix3fv(location, 1, GL_FALSE, &data[0][0]);
+    }
+
+    void Shader::SetUniformMatrix4f(const std::string &name, const glm::mat4 &data) const
+    {
+        int location = this->GetUniformLocation(name);
+        glUniformMatrix4fv(location, 1, GL_FALSE, &data[0][0]);
+    }
+
+    // METHODS
 
     void Shader::Bind() const
     {
-        GLCall(glUseProgram(this->m_ProgramID));
+        GLCall(glUseProgram(this->m_Program));
     }
 
     void Shader::Unbind() const
     {
         GLCall(glUseProgram(0));
     }
+
+    // STATIC METHODS
 
     std::string Shader::GetShaderSourceCode(const GLenum &type, const char *sourceCode)
     {
@@ -54,6 +130,8 @@ namespace Crayon
             if (line.find(breakpoint) != std::string::npos)
                 write = true;
         }
+
+        spdlog::info("{} SHADER:\n{}", breakpoint, content.str());
 
         // Retuning shader content
         return content.str();
@@ -125,5 +203,4 @@ namespace Crayon
 
         return shader;
     }
-
 }

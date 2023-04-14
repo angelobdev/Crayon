@@ -4,6 +4,7 @@
 namespace Crayon
 {
     VertexArray::VertexArray()
+            : m_IndicesArray()
     {
         GLCall(glGenVertexArrays(1, &this->m_ID));
     }
@@ -18,7 +19,7 @@ namespace Crayon
         GLCall(glBindVertexArray(0));
     }
 
-    void VertexArray::LinkBuffer(const VertexBuffer &vb)
+    void VertexArray::LinkBuffer(const VertexBuffer &vb, const std::vector<IndexBuffer> &ibs)
     {
         this->Bind();
         vb.Bind();
@@ -42,5 +43,7 @@ namespace Crayon
 
         vb.Unbind();
         this->Unbind();
+
+        this->m_IndicesArray = ibs;
     }
 }

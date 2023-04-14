@@ -69,11 +69,13 @@ namespace Crayon
     {
         // Rendering
         ImGui::Render();
-        int display_w = s_Window->GetWidth();
-        int display_h = s_Window->GetHeight();
 
-        glViewport(0, 0, display_w, display_h);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//        int display_w = s_Window->GetWidth();
+//        int display_h = s_Window->GetHeight();
+
+//        CRAYON_CORE_TRACE("W: {}, H: {}", display_w, display_h);
+//        glViewport(0, 0, display_w, display_h);
+//        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

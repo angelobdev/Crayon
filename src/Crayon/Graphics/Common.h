@@ -4,7 +4,11 @@
 #include "Crayon/Core/Base.h"
 #include "Crayon/Core/Logger.h"
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <debugbreak.h>
+
+#define INT_TO_VOID_PTR(i) (const void *)(uintptr_t)(i)
 
 /* ***** ERROR CATCHING FOR OPENGL FUNCTIONS ***** */
 

@@ -41,11 +41,23 @@ add_library(Crayon STATIC
 
         src/Crayon/Graphics/ImGui/ImGuiController.h
         src/Crayon/Graphics/ImGui/ImGuiController.cpp
-        src/Crayon/Graphics/Shader.h
+
         src/Crayon/Graphics/Common.h
+        src/Crayon/Graphics/VertexArray.h
+        src/Crayon/Graphics/VertexArray.cpp
+        src/Crayon/Graphics/VertexBuffer.h
+        src/Crayon/Graphics/VertexBuffer.cpp
+        src/Crayon/Graphics/IndexBuffer.h
+        src/Crayon/Graphics/IndexBuffer.cpp
+        src/Crayon/Graphics/Shader.h
+        src/Crayon/Graphics/Shader.cpp
+        src/Crayon/Graphics/Texture.h
+        src/Crayon/Graphics/Texture.cpp
+
         src/Crayon/Utilities/ResourceLoader.cpp
         src/Crayon/Utilities/ResourceLoader.h
-        src/Crayon/Graphics/VertexArray.cpp src/Crayon/Graphics/VertexArray.h src/Crayon/Graphics/VertexBuffer.cpp src/Crayon/Graphics/VertexBuffer.h src/Crayon/Utilities/GLUtils.cpp src/Crayon/Utilities/GLUtils.h src/Crayon/Graphics/IndexBuffer.cpp src/Crayon/Graphics/IndexBuffer.h src/Crayon/Graphics/Shader.cpp)
+        src/Crayon/Utilities/GLUtils.cpp
+        src/Crayon/Utilities/GLUtils.h)
 
 target_include_directories(Crayon PUBLIC "src")
 target_precompile_headers(Crayon PUBLIC "src/crypch.h")
@@ -78,6 +90,14 @@ target_link_libraries(Crayon PRIVATE "imgui")
 # debugbreak
 set(DBGBRK_DIR "${CRAYON_VENDOR_DIR}/debugbreak")
 target_include_directories(Crayon PUBLIC "${DBGBRK_DIR}/include")
+
+# glm
+set(GLM_DIR "${CRAYON_VENDOR_DIR}/glm")
+target_include_directories(Crayon PUBLIC "${GLM_DIR}")
+
+# stb_image
+set(STB_IMAGE_DIR "${CRAYON_VENDOR_DIR}/stb_image")
+target_include_directories(Crayon PUBLIC "${STB_IMAGE_DIR}/include")
 
 # ----- Examples -----
 option(CRAYON_BUILD_EXAMPLES "Crayon Build Examples" ON) # TODO test
