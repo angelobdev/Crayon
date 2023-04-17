@@ -1,5 +1,5 @@
 #include "Shader.h"
-#include "Crayon/Utilities/ResourceLoader.h"
+#include "Crayon/Utils/ResourceLoader.h"
 
 namespace Crayon
 {
@@ -20,11 +20,37 @@ namespace Crayon
         GLCall(glDeleteProgram(this->m_Program));
     }
 
+    // METHODS
+
+    void Shader::Bind() const
+    {
+        GLCall(glUseProgram(this->m_Program));
+    }
+
+    void Shader::Unbind() const
+    {
+        GLCall(glUseProgram(0));
+    }
+
+    // GETTERS
+
+    bool Shader::IsBound() const
+    {
+        GLint program;
+        glGetIntegerv(GL_CURRENT_PROGRAM, &program);
+        return m_Program == program;
+    }
+
     // UNIFORMS
 
     int Shader::GetUniformLocation(const std::string &name) const
     {
-        this->Bind();
+        if (!this->IsBound())
+        {
+            this->Bind();
+            CRAYON_CORE_WARN("Shaders should be bound before setting a uniform!");
+        }
+
         int location = glGetUniformLocation(this->m_Program, name.c_str());
         if (location == -1)
             spdlog::error("Unable to find uniform: {}", name);
@@ -79,18 +105,6 @@ namespace Crayon
         glUniformMatrix4fv(location, 1, GL_FALSE, &data[0][0]);
     }
 
-    // METHODS
-
-    void Shader::Bind() const
-    {
-        GLCall(glUseProgram(this->m_Program));
-    }
-
-    void Shader::Unbind() const
-    {
-        GLCall(glUseProgram(0));
-    }
-
     // STATIC METHODS
 
     std::string Shader::GetShaderSourceCode(const GLenum &type, const char *sourceCode)
@@ -130,8 +144,6 @@ namespace Crayon
             if (line.find(breakpoint) != std::string::npos)
                 write = true;
         }
-
-        spdlog::info("{} SHADER:\n{}", breakpoint, content.str());
 
         // Retuning shader content
         return content.str();

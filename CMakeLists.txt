@@ -26,7 +26,6 @@ add_library(Crayon STATIC
         src/Crayon/Events/KeyEvent.h
         src/Crayon/Events/MouseEvent.h
         src/Crayon/Events/WindowEvent.h
-        src/Crayon/Core/Events.h
 
         src/Crayon/Core/Window.h
         src/Crayon/Core/Window.cpp
@@ -43,21 +42,21 @@ add_library(Crayon STATIC
         src/Crayon/Graphics/ImGui/ImGuiController.cpp
 
         src/Crayon/Graphics/Common.h
-        src/Crayon/Graphics/VertexArray.h
-        src/Crayon/Graphics/VertexArray.cpp
-        src/Crayon/Graphics/VertexBuffer.h
-        src/Crayon/Graphics/VertexBuffer.cpp
-        src/Crayon/Graphics/IndexBuffer.h
-        src/Crayon/Graphics/IndexBuffer.cpp
-        src/Crayon/Graphics/Shader.h
-        src/Crayon/Graphics/Shader.cpp
-        src/Crayon/Graphics/Texture.h
-        src/Crayon/Graphics/Texture.cpp
+        src/Crayon/Graphics/Core/VertexArray.h
+        src/Crayon/Graphics/Core/VertexArray.cpp
+        src/Crayon/Graphics/Core/VertexBuffer.h
+        src/Crayon/Graphics/Core/VertexBuffer.cpp
+        src/Crayon/Graphics/Core/IndexBuffer.h
+        src/Crayon/Graphics/Core/IndexBuffer.cpp
+        src/Crayon/Graphics/Core/Shader.h
+        src/Crayon/Graphics/Core/Shader.cpp
+        src/Crayon/Graphics/Core/Texture.h
+        src/Crayon/Graphics/Core/Texture.cpp
 
-        src/Crayon/Utilities/ResourceLoader.cpp
-        src/Crayon/Utilities/ResourceLoader.h
-        src/Crayon/Utilities/GLUtils.cpp
-        src/Crayon/Utilities/GLUtils.h)
+        src/Crayon/Utils/ResourceLoader.cpp
+        src/Crayon/Utils/ResourceLoader.h
+        src/Crayon/Graphics/Utils/CommonUtils.cpp
+        src/Crayon/Graphics/Utils/CommonUtils.h src/Crayon/Graphics/Utils/VertexLayout.cpp src/Crayon/Graphics/Utils/VertexLayout.h)
 
 target_include_directories(Crayon PUBLIC "src")
 target_precompile_headers(Crayon PUBLIC "src/crypch.h")

@@ -1,13 +1,14 @@
 #include "Texture.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h> // TODO: maybe replace with SDL2_image ???
+
+#include <stb_image.h>
 
 namespace Crayon
 {
     Texture::Texture(const std::string &filePath)
-        : m_ID(0), m_FilePath(filePath), m_LocalBuffer(nullptr),
-          m_Width(0), m_Height(0), m_BPP(0)
+            : m_ID(0), m_FilePath(filePath), m_LocalBuffer(NULL),
+              m_Width(0), m_Height(0), m_BPP(0)
     {
         // Creating OpenGL Texture Buffer
         GLCall(glGenTextures(1, &this->m_ID));
@@ -25,12 +26,12 @@ namespace Crayon
         spdlog::debug("Trying to load texture from: {}", this->m_FilePath);
         if (this->m_LocalBuffer)
         {
-            GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->m_Width, this->m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, this->m_LocalBuffer));
+            GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->m_Width, this->m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE,
+                                this->m_LocalBuffer));
             glGenerateMipmap(GL_TEXTURE_2D);
             stbi_image_free(this->m_LocalBuffer);
             spdlog::debug("Texture loaded correctly!");
-        }
-        else
+        } else
         {
             spdlog::error("Failed to load texture: {}", stbi_failure_reason());
         }

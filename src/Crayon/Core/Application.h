@@ -16,7 +16,7 @@ namespace Crayon
 
         virtual ~Application();
 
-        // Methods
+        // Methods to implement in client
 
         virtual void Update() = 0;
 
@@ -43,9 +43,11 @@ namespace Crayon
         virtual void OnWindowLostFocus() {}
 
     private:
-        void OnEvent(Event *event);
+        void Initialize();
 
         void HandleEvents();
+
+        void OnEvent(Event *event);
     };
 
     Application *CreateApplication(); // To be defined in client

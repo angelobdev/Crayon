@@ -1,10 +1,10 @@
 #pragma once
 
-#include <glad/glad.h>
+#include <Users/angelo/Dev/CXX/Crayon/vendor/glad/include/glad/glad.h>
 
 namespace Crayon
 {
-    class GLUtils
+    class CommonUtils
     {
     public:
         static unsigned int GetSizeOfType(GLenum type);

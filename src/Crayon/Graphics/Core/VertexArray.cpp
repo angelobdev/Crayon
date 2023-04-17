@@ -1,10 +1,9 @@
 #include "VertexArray.h"
-#include "Crayon/Utilities/GLUtils.h"
+#include "Crayon/Graphics/Utils/CommonUtils.h"
 
 namespace Crayon
 {
     VertexArray::VertexArray()
-            : m_IndicesArray()
     {
         GLCall(glGenVertexArrays(1, &this->m_ID));
     }
@@ -19,31 +18,32 @@ namespace Crayon
         GLCall(glBindVertexArray(0));
     }
 
-    void VertexArray::LinkBuffer(const VertexBuffer &vb, const std::vector<IndexBuffer> &ibs)
+    void VertexArray::LinkBuffer(const VertexBuffer &vb, const VertexLayout &layout)
     {
         this->Bind();
         vb.Bind();
 
-        const auto &elements = vb.GetLayoutElements(); // Retrieving list of elements
+        const auto &elements = layout.GetLayoutElements();
 
         unsigned int offset = 0;
         for (unsigned int i = 0; i < elements.size(); i++)
         {
             const auto &elem = elements[i];
+
+            spdlog::debug("Element: {} {} {}", elem.type, elem.count, elem.normalized);
+
             GLCall(glEnableVertexAttribArray(i));
             GLCall(glVertexAttribPointer(
                     i,
                     elem.count,
                     elem.type,
                     elem.normalized ? GL_TRUE : GL_FALSE,
-                    vb.GetStride(),
+                    layout.GetStride(),
                     INT_TO_VOID_PTR(offset)));
-            offset += GLUtils::GetSizeOfType(elem.type) * elem.count;
+            offset += CommonUtils::GetSizeOfType(elem.type) * elem.count;
         }
 
         vb.Unbind();
         this->Unbind();
-
-        this->m_IndicesArray = ibs;
     }
 }

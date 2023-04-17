@@ -3,7 +3,7 @@
 namespace Crayon
 {
     IndexBuffer::IndexBuffer(const std::vector<unsigned int> &indices)
-        : m_Count((unsigned int)indices.size())
+            : m_Count((unsigned int) indices.size())
     {
         GLCall(glGenBuffers(1, &this->m_ID));
         GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->m_ID));

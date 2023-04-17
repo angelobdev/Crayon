@@ -4,7 +4,11 @@
 #include <GLFW/glfw3.h>
 
 #include "Logger.h"
-#include "Events.h"
+
+#include "Crayon/Events/Event.h"
+#include "Crayon/Events/KeyEvent.h"
+#include "Crayon/Events/MouseEvent.h"
+#include "Crayon/Events/WindowEvent.h"
 
 namespace Crayon
 {
@@ -52,6 +56,15 @@ namespace Crayon
         }
 
         GLFWwindow *GetPointer() { return m_Window; }
+
+        float GetAspectRatio()
+        {
+            float ww = (float) GetWidth();
+            float hh = (float) GetHeight();
+            float ar = ww / hh;
+//            CRAYON_CORE_TRACE("WINDOW: ({}, {}) = {}", ww, hh, ar);
+            return ar;
+        }
 
     private:
         static void GetCenteredPosition(int width, int height, int *xPos, int *yPos);

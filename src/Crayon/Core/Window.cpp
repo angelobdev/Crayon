@@ -121,6 +121,12 @@ namespace Crayon
                                   }
         );
 
+        glfwSetFramebufferSizeCallback(m_Window, [](GLFWwindow *window, int width, int height)
+                                       {
+                                           glViewport(0, 0, width, height);
+                                       }
+        );
+
         // Window Minimized
         glfwSetWindowIconifyCallback(m_Window, [](GLFWwindow *window, int minimized)
                                      {

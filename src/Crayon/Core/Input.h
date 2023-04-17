@@ -1,7 +1,11 @@
 #pragma once
 
 #include "crypch.h"
-#include "Events.h"
+
+#include "Crayon/Events/Event.h"
+#include "Crayon/Events/KeyEvent.h"
+#include "Crayon/Events/MouseEvent.h"
+#include "Crayon/Events/WindowEvent.h"
 
 namespace Crayon
 {

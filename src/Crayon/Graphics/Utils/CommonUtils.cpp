@@ -1,9 +1,9 @@
-#include "GLUtils.h"
+#include "CommonUtils.h"
 #include "Crayon/Core/Logger.h"
 
 namespace Crayon
 {
-    unsigned int GLUtils::GetSizeOfType(GLenum type)
+    unsigned int CommonUtils::GetSizeOfType(GLenum type)
     {
         switch (type)
         {
