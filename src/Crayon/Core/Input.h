@@ -22,10 +22,7 @@ namespace Crayon
 
         static KeyState GetKey(const Key &key);
 
-        static bool GetKeyDown(const Key&key)
-        {
-            return GetKey(key) == (KeyState::Pressed | KeyState::Released);
-        }
+        static bool GetKeyDown(const Key &key);
 
         static void KeyCallback(const Key &key, const KeyState &keyState); // Callback
 
@@ -37,9 +34,9 @@ namespace Crayon
 
         // CURSOR FUNCTIONS
 
-        static double GetMouseX() { return s_MouseX; }
+        static double GetMouseX();
 
-        static double GetMouseY() { return s_MouseY; }
+        static double GetMouseY();
 
         static void MousePosCallback(double mouseX, double mouseY); // Callback
     };

@@ -7,7 +7,5 @@
 #elif defined(__APPLE__)
 	#define CRAYON_PLATFORM_APPLE
 #else
-	#error Crayon is only supported on Windows!
+	#error Crayon is only supported on Windows and macOS!
 #endif
-
-#define BIT(x) 1 << x

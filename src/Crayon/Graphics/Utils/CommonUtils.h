@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Users/angelo/Dev/CXX/Crayon/vendor/glad/include/glad/glad.h>
+#include <Crayon/Graphics/Common.h>
 
 namespace Crayon
 {

@@ -18,7 +18,7 @@ namespace Crayon
 
         // Methods to implement in client
 
-        virtual void Update() = 0;
+        virtual void Update(double deltaTime) = 0;
 
         virtual void Render() = 0;
 

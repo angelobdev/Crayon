@@ -45,9 +45,14 @@ public:
 
     }
 
-    void Update() override
+    void Update(double deltaTime) override
     {
-        if(Crayon::Input::GetKey(GLFW_KEY_W) == Crayon::KeyState::)
+        if (Crayon::Input::GetKeyDown(GLFW_KEY_W)) cam_position.z += 1.0f * deltaTime;
+        if (Crayon::Input::GetKeyDown(GLFW_KEY_S)) cam_position.z -= 1.0f * deltaTime;
+        if (Crayon::Input::GetKeyDown(GLFW_KEY_A)) cam_position.x += 1.0f * deltaTime;
+        if (Crayon::Input::GetKeyDown(GLFW_KEY_D)) cam_position.x -= 1.0f * deltaTime;
+        if (Crayon::Input::GetKeyDown(GLFW_KEY_LEFT_SHIFT)) cam_position.y += 1.0f * deltaTime;
+        if (Crayon::Input::GetKeyDown(GLFW_KEY_SPACE)) cam_position.y -= 1.0f * deltaTime;
     }
 
     void Render() override
@@ -65,7 +70,7 @@ public:
                          (
                                  glm::radians(70.0f),
                                  m_Window->GetAspectRatio(),
-                                 1.0f,
+                                 0.0f,
                                  100.0f
                          )
                 );

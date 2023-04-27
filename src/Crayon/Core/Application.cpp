@@ -85,14 +85,17 @@ namespace Crayon
     {
         this->Initialize();
 
+        double deltaTime = 0.01f;
         while (!m_Window->ShouldClose())
         {
+            double start = glfwGetTime();
+
             // Handling Events
             m_Window->PollEvents();
             this->HandleEvents();
 
             // Update
-            this->Update();
+            this->Update(deltaTime);
 
             // Rendering
             this->Render();
@@ -103,6 +106,9 @@ namespace Crayon
             Crayon::ImGuiController::Draw();
 
             m_Window->SwapBuffers();
+
+            double end = glfwGetTime();
+            deltaTime = end - start;
         }
 
         // Terminating ImGui
