@@ -17,18 +17,30 @@ namespace Crayon
         static double s_MouseX, s_MouseY;
 
     public:
+
+        // KEYBOARD FUNCTIONS
+
         static KeyState GetKey(const Key &key);
 
-        static void KeyCallback(const Key &key, const KeyState &keyState);
+        static bool GetKeyDown(const Key&key)
+        {
+            return GetKey(key) == (KeyState::Pressed | KeyState::Released);
+        }
+
+        static void KeyCallback(const Key &key, const KeyState &keyState); // Callback
+
+        // MOUSE FUNCTIONS
 
         static MouseButtonState GetMouseButton(const MouseButton &button);
 
-        static void MouseButtonCallback(const MouseButton &button, const MouseButtonState &buttonState);
+        static void MouseButtonCallback(const MouseButton &button, const MouseButtonState &buttonState); // Callback
+
+        // CURSOR FUNCTIONS
 
         static double GetMouseX() { return s_MouseX; }
 
         static double GetMouseY() { return s_MouseY; }
 
-        static void MousePosCallback(double mouseX, double mouseY);
+        static void MousePosCallback(double mouseX, double mouseY); // Callback
     };
 }

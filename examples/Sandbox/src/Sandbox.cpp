@@ -1,20 +1,14 @@
 #include "Crayon.h"
 
-#include "Crayon/Graphics/Core/VertexArray.h"
-#include "Crayon/Graphics/Core/VertexBuffer.h"
-#include "Crayon/Graphics/Core/IndexBuffer.h"
-#include "Crayon/Graphics/Core/Shader.h"
-
-#include "Crayon/Utils/ResourceLoader.h"
-
 class Sandbox : public Crayon::Application
 {
 private:
     std::vector<float> vertices = {
-            -0.5f, -0.5f, 0.0f,
-            +0.5f, -0.5f, 0.0f,
-            -0.5f, +0.5f, 0.0f,
-            +0.5f, +0.5f, 0.0f,
+            // POSITION         // COLOR         // TEXTURE COORD
+            -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+            +0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+            -0.5f, +0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+            +0.5f, +0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
     };
 
     std::vector<unsigned int> indices = {
@@ -26,22 +20,34 @@ private:
     Crayon::VertexBuffer vertexBuffer;
     Crayon::IndexBuffer indexBuffer;
     Crayon::Shader shader;
+    Crayon::Texture texture;
 
-    glm::vec3 obj_position = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 obj_position = glm::vec3(0.0f, 0.0f, -2.0f);
     glm::vec3 cam_position = glm::vec3(0.0f, 0.0f, 0.0f);
 
 public:
     Sandbox() : Application("Sandbox", 800, 600),
-                vertexArray(), vertexBuffer(vertices), indexBuffer(indices), shader("assets/shaders/basic.glsl", true)
+                vertexArray(),
+                vertexBuffer(vertices),
+                indexBuffer(indices),
+                shader("assets/shaders/basic.glsl", true),
+                texture("assets/textures/test.png")
     {
         GLCall(glClearColor(0.2f, 0.4f, 0.6f, 1.0f));
 
-        vertexArray.LinkBuffer(vertexBuffer, Crayon::VertexLayout({{3, GL_FLOAT}}));
+        // Linking Vertex Buffer to Vertex Array
+        vertexArray.LinkBuffer(vertexBuffer,
+                               Crayon::VertexLayout({
+                                                            {3, GL_FLOAT},
+                                                            {3, GL_FLOAT},
+                                                            {2, GL_FLOAT}
+                                                    }));
+
     }
 
     void Update() override
     {
-
+        if(Crayon::Input::GetKey(GLFW_KEY_W) == Crayon::KeyState::)
     }
 
     void Render() override
@@ -63,6 +69,9 @@ public:
                                  100.0f
                          )
                 );
+
+        texture.Bind(1);
+        shader.SetUniform1i("u_Texture", 1);
 
         vertexArray.Bind();
         indexBuffer.Bind();

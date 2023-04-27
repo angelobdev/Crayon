@@ -18,10 +18,8 @@ namespace Crayon
 
     void Application::Initialize()
     {
-        Crayon::ImGuiController::Initialize(m_Window.get());
-        Crayon::Logger::Initialize();
-
         CRAYON_CORE_INFO("Welcome to Crayon Engine!");
+        Crayon::ImGuiController::Initialize(m_Window.get());
     }
 
     void Application::HandleEvents()

@@ -7,7 +7,11 @@ namespace Crayon
     using Key = int;
     enum class KeyState
     {
-        Null, Touched, Pressed, Released
+        Null = BIT(1),
+        Touched = BIT(2),
+        Pressed = BIT(3),
+        Released = BIT(4)
+                //TODO: CHECK
     };
 
     class KeyEvent : public Event
