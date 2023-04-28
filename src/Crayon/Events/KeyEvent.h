@@ -10,6 +10,27 @@ namespace Crayon
         Null, Touched, Pressed, Released
     };
 
+    static const char *GetKeyStateName(const KeyState &state)
+    {
+        char *name = (char *) malloc(sizeof(char) * 24);
+        switch (state)
+        {
+            case KeyState::Null:
+                sprintf(name, "Null");
+                break;
+            case KeyState::Touched:
+                sprintf(name, "Touched");
+                break;
+            case KeyState::Pressed:
+                sprintf(name, "Pressed");
+                break;
+            case KeyState::Released:
+                sprintf(name, "Released");
+                break;
+        }
+        return name;
+    }
+
     class KeyEvent : public Event
     {
     private:
@@ -17,11 +38,14 @@ namespace Crayon
         KeyState m_KeyState;
 
     public:
-        KeyEvent(Key key, KeyState state) : m_Key(key), m_KeyState(state) { m_IsNull = false; }
+        KeyEvent(Key key, KeyState state) : m_Key(key), m_KeyState(state)
+        { m_IsNull = false; }
 
-        Key GetKey() const { return m_Key; }
+        Key GetKey() const
+        { return m_Key; }
 
-        KeyState GetKeyState() const { return m_KeyState; }
+        KeyState GetKeyState() const
+        { return m_KeyState; }
 
         // Override
         std::string GetName() const override

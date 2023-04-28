@@ -1,4 +1,4 @@
-# Crayon 🎮
+![Crayon](https://i.imgur.com/uiE6Ql8.png)
 
 This project is more of a challenge to myself.
 
@@ -11,37 +11,26 @@ Hope you enjoy!
 ---
 ## Getting started 🚀
 
-The project has been developed on both Windows (using Visual Studio) and macOS (using CLion). If you want to run it you can use CMake.
+The project has been developed on both Windows and macOS (using CLion).  
+If you want to run it you can use CMake.
 
-### 1. Clone the project:
+#### How to clone the project:
 ```shell
 $ git clone --recursive https://github.com/angelobdev/Crayon.git
 ```
 
-### 2. Open it using your favorite Text Editor / IDE
-Recommeded: Visual Studio / CLion
-
-### 3. Enjoy ❤️
-
-**NOTE 🚧**  
+**Warning 🚧**  
 THE PROJECT IS STILL UNDER DEVELOPMENT AND POSSIBLY FULL OF BUGS!
 
 ---
 
 ## Libraries 🔗
-- Windowing System &rarr; [GLFW](https://github.com/glfw/glfw)  
-- Graphics (OpenGL) &rarr; [glad](https://glad.dav1d.de/)  
-- Logging &rarr; [spdlog](https://github.com/gabime/spdlog)
-- Math library &rarr; [glm](https://github.com/g-truc/glm)
-- UI &rarr; [Dear ImGui](https://github.com/ocornut/imgui)
+[glfw](https://github.com/glfw/glfw) - [glad](https://glad.dav1d.de/) - [spdlog](https://github.com/gabime/spdlog) - [glm](https://github.com/g-truc/glm) - [imgui](https://github.com/ocornut/imgui) - [debugbreak](https://github.com/scottt/debugbreak) - [stb_image](https://github.com/nothings/stb)
 
 ---
 
 ## Resources 📚
 
-#### OpenGL
-- [Online Book](https://learnopengl.com/)  
-- [Documentation](https://docs.gl/)  
-- [Youtube Tutorial](https://www.youtube.com/watch?v=W3gAzLwfIP0&list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2)
+[OpenGL Web Book](https://learnopengl.com/) - [Documentation](https://docs.gl/) - [Youtube Playlist](https://www.youtube.com/watch?v=W3gAzLwfIP0&list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2)
 
 ---

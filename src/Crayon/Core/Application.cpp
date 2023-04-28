@@ -4,6 +4,8 @@
 
 namespace Crayon
 {
+    // CONSTRUCTOR & DESTRUCTOR
+
     Application::Application(const char *title, int width, int height)
             : m_Window(std::make_shared<Window>(title, width, height))
     {
@@ -11,6 +13,21 @@ namespace Crayon
     }
 
     Application::~Application() = default;
+
+    // METHODS
+
+    void Application::Initialize()
+    {
+        CRAYON_CORE_INFO("Welcome to Crayon Engine!");
+        Crayon::ImGuiController::Initialize(m_Window.get());
+    }
+
+    void Application::HandleEvents()
+    {
+        Event *lastEvent = EventDispatcher::Retrieve();
+        if (lastEvent != nullptr) { OnEvent(lastEvent); }
+        delete lastEvent;
+    }
 
     void Application::OnEvent(Event *event)
     {
@@ -60,38 +77,48 @@ namespace Crayon
                     break;
             }
         }
-
     }
 
-    void Application::HandleEvents()
-    {
-        Event *lastEvent = EventDispatcher::Retrieve();
-        if (lastEvent != nullptr) { OnEvent(lastEvent); }
-        delete lastEvent;
-    }
+    // RUN METHODS
 
     void Application::Run()
     {
+        this->Initialize();
+
+        double deltaTime = 0.01f;
         while (!m_Window->ShouldClose())
         {
+            double start = glfwGetTime();
+
             // Handling Events
+            m_Window->PollEvents();
             this->HandleEvents();
 
             // Update
-            this->Update();
+            this->Update(deltaTime);
 
-            // Render
+            // Rendering
             this->Render();
 
-            // Window stuff
-            m_Window->PollEvents();
+            // UI (ImGui)
+            Crayon::ImGuiController::NewFrame();
+            this->RenderUI();
+            Crayon::ImGuiController::Draw();
+
             m_Window->SwapBuffers();
+
+            double end = glfwGetTime();
+            deltaTime = end - start;
         }
 
-        // Dispatching remaining events
+        // Terminating ImGui
+        ImGuiController::Terminate();
+
+        // Dispatching remaining events (Not sure if this is needed anymore)
         while (EventDispatcher::GetQueueSize() > 0)
             this->HandleEvents();
 
         m_Window->Close();
+        CRAYON_CORE_INFO("Bye! <3");
     }
 }

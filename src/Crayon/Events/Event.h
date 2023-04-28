@@ -1,6 +1,7 @@
 #pragma once
 
 #include "crypch.h"
+#include "Crayon/Core/Base.h"
 
 namespace Crayon
 {

@@ -2,24 +2,27 @@
 
 #include "Base.h"
 #include "Window.h"
+#include "Crayon/Graphics/ImGui/ImGuiController.h"
 
 namespace Crayon
 {
     class Application
     {
-    private:
-        std::shared_ptr<Window> m_Window;
 
+    protected:
+        std::shared_ptr<Window> m_Window;
     public:
         Application(const char *title, int width, int height);
 
         virtual ~Application();
 
-        // Methods
+        // Methods to implement in client
 
-        virtual void Update() = 0;
+        virtual void Update(double deltaTime) = 0;
 
         virtual void Render() = 0;
+
+        virtual void RenderUI() {}
 
         void Run();
 
@@ -27,7 +30,11 @@ namespace Crayon
 
         virtual void OnWindowClosed() {}
 
-        virtual void OnWindowResized(int width, int height) {}
+        virtual void OnWindowResized(int width, int height)
+        {
+            glViewport(0, 0, width, height);
+            this->Render();
+        }
 
         virtual void OnWindowMinimized() {}
 
@@ -36,9 +43,11 @@ namespace Crayon
         virtual void OnWindowLostFocus() {}
 
     private:
-        void OnEvent(Event *event);
+        void Initialize();
 
         void HandleEvents();
+
+        void OnEvent(Event *event);
     };
 
     Application *CreateApplication(); // To be defined in client
