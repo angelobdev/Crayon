@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Base.h"
-#include "Window.h"
 #include "Crayon/Graphics/ImGui/ImGuiController.h"
+#include "Window.h"
 
 namespace Crayon
 {
@@ -10,7 +10,8 @@ namespace Crayon
     {
 
     protected:
-        std::shared_ptr<Window> m_Window;
+        std::shared_ptr<Window> p_Window;
+
     public:
         Application(const char *title, int width, int height);
 
@@ -32,6 +33,7 @@ namespace Crayon
 
         virtual void OnWindowResized(int width, int height)
         {
+            glfwSetWindowSize(p_Window->GetPointer(), width, height);
             glViewport(0, 0, width, height);
             this->Render();
         }

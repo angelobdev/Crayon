@@ -2,74 +2,75 @@
 
 namespace Crayon
 {
-    Window::Window(const char *title, int width, int height)
-            : m_HasBeenClosed(false), m_IsFullscreen(false), m_WindowedWidth(width), m_WindowedHeight(height)
-    {
-        // ----- INITIALIZING WINDOWING SYSTEM -----
+    bool Window::s_GLFWInitialized = false;
 
-        // GLFW
-        if (!glfwInit())
+    Window::Window(const char *title, int width, int height)
+        : m_HasBeenClosed(false), m_IsFullscreen(false), m_WindowedWidth(width), m_WindowedHeight(height)
+    {
+        // Initializing GLFW
+        if (!s_GLFWInitialized)
         {
-            CRAYON_CORE_ERROR("Failed to initialize the window!");
-            exit(-1);
+            CRAYON_CORE_TRACE("Initializing GLFW...");
+            if (!glfwInit())
+            {
+                CRAYON_CORE_FATAL("Failed to initialize the window!");
+                exit(-1);
+            }
         }
 
-        // Hints
+        // Setting window hints
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 
         // Creating window
-        m_Window = glfwCreateWindow(width, height, title, NULL, NULL);
-        if (!m_Window)
+        CRAYON_CORE_TRACE("Creating {} window ({}x{})...", title, width, height);
+        p_Window = glfwCreateWindow(width, height, title, NULL, NULL);
+        if (!p_Window)
         {
-            CRAYON_CORE_ERROR("Failed to create the window!");
+            CRAYON_CORE_FATAL("Failed to create the window!");
+            glfwDestroyWindow(p_Window);
+            glfwTerminate();
             exit(-1);
         }
 
         // Centering window
         int xPos, yPos;
         GetCenteredPosition(width, height, &xPos, &yPos);
-        glfwSetWindowPos(m_Window, xPos, yPos);
-
-        // ----- SETTING CALLBACKS -----
+        glfwSetWindowPos(p_Window, xPos, yPos);
 
         // Key Callbacks
-        glfwSetKeyCallback(m_Window, [](GLFWwindow *window, int key, int scancode, int action, int mods)
+        glfwSetKeyCallback(p_Window, [](GLFWwindow *window, int key, int scancode, int action, int mods)
                            {
                                Key k = key;
                                KeyState kState{KeyState::Null};
 
                                switch (action)
                                {
-                                   case GLFW_PRESS:
-                                       kState = KeyState::Touched;
-                                       break;
-                                   case GLFW_REPEAT:
-                                       kState = KeyState::Pressed;
-                                       break;
-                                   case GLFW_RELEASE:
-                                       kState = KeyState::Released;
-                                       break;
-                                   default:
-                                       CRAYON_CORE_ERROR("Invalid Key Action (GLFW Key Callback)");
-                                       break;
+                               case GLFW_PRESS:
+                                   kState = KeyState::Touched;
+                                   break;
+                               case GLFW_REPEAT:
+                                   kState = KeyState::Pressed;
+                                   break;
+                               case GLFW_RELEASE:
+                                   kState = KeyState::Released;
+                                   break;
+                               default:
+                                   CRAYON_CORE_ERROR("Invalid Key Action (GLFW Key Callback)");
+                                   break;
                                }
 
                                EventDispatcher::Dispatch(new KeyEvent(k, kState)); // new Event will be deleted by Application::OnEvent()
-                           }
-        );
+                           });
 
         // Mouse Movement Callbacks
-        glfwSetCursorPosCallback(m_Window, [](GLFWwindow *window, double cursorX, double cursorY)
-                                 {
-                                     EventDispatcher::Dispatch(new MouseMovedEvent(cursorX, cursorY));
-                                 }
-        );
+        glfwSetCursorPosCallback(p_Window, [](GLFWwindow *window, double cursorX, double cursorY)
+                                 { EventDispatcher::Dispatch(new MouseMovedEvent(cursorX, cursorY)); });
 
         // Mouse Button Callbacks
-        glfwSetMouseButtonCallback(m_Window, [](GLFWwindow *window, int button, int action, int mods)
+        glfwSetMouseButtonCallback(p_Window, [](GLFWwindow *window, int button, int action, int mods)
                                    {
                                        MouseButton mButton{MouseButton::Null};
                                        MouseButtonState mState{MouseButtonState::Null};
@@ -103,62 +104,49 @@ namespace Crayon
                                                break;
                                        }
 
-                                       EventDispatcher::Dispatch(new MouseButtonEvent(mButton, mState));
-                                   }
-        );
+                                       EventDispatcher::Dispatch(new MouseButtonEvent(mButton, mState)); });
 
         // Window Closed Callback
-        glfwSetWindowCloseCallback(m_Window, [](GLFWwindow *window)
-                                   {
-                                       EventDispatcher::Dispatch(new WindowEvent(WindowState::Closed));
-                                   }
-        );
+        glfwSetWindowCloseCallback(p_Window, [](GLFWwindow *window)
+                                   { EventDispatcher::Dispatch(new WindowEvent(WindowState::Closed)); });
 
         // Window Resized
-        glfwSetWindowSizeCallback(m_Window, [](GLFWwindow *window, int width, int height)
-                                  {
-                                      EventDispatcher::Dispatch(new WindowEvent(WindowState::Resized));
-                                  }
-        );
+        glfwSetWindowSizeCallback(p_Window, [](GLFWwindow *window, int width, int height)
+                                  { EventDispatcher::Dispatch(new WindowEvent(WindowState::Resized)); });
 
-        glfwSetFramebufferSizeCallback(m_Window, [](GLFWwindow *window, int width, int height)
-                                       {
-                                           glViewport(0, 0, width, height);
-                                       }
-        );
+        glfwSetFramebufferSizeCallback(p_Window, [](GLFWwindow *window, int width, int height)
+                                       { glViewport(0, 0, width, height); });
 
         // Window Minimized
-        glfwSetWindowIconifyCallback(m_Window, [](GLFWwindow *window, int minimized)
+        glfwSetWindowIconifyCallback(p_Window, [](GLFWwindow *window, int minimized)
                                      {
                                          if (minimized)
-                                             EventDispatcher::Dispatch(new WindowEvent(WindowState::Minimized));
-                                     }
-        );
+                                             EventDispatcher::Dispatch(new WindowEvent(WindowState::Minimized)); });
 
         // Window Focused, Unfocused
-        glfwSetWindowFocusCallback(m_Window, [](GLFWwindow *window, int focused)
+        glfwSetWindowFocusCallback(p_Window, [](GLFWwindow *window, int focused)
                                    {
                                        WindowState focus = focused ? WindowState::Focused : WindowState::Unfocused;
-                                       EventDispatcher::Dispatch(new WindowEvent(focus));
-                                   }
-        );
+                                       EventDispatcher::Dispatch(new WindowEvent(focus)); });
 
-        // ----- SETTING OPENGL -----
-        glfwMakeContextCurrent(m_Window);
+        // Making context current
+        glfwMakeContextCurrent(p_Window);
 
+        // Initializing OpenGL
         if (!gladLoadGL())
         {
-            CRAYON_CORE_ERROR("Failed to initialize OpenGL!");
+            CRAYON_CORE_FATAL("Failed to initialize OpenGL!");
+            glfwDestroyWindow(p_Window);
+            glfwTerminate();
             exit(-1);
         }
-
     }
 
     void Window::Close()
     {
         if (!this->m_HasBeenClosed)
         {
-            glfwDestroyWindow(m_Window);
+            glfwDestroyWindow(p_Window);
             glfwTerminate();
             this->m_HasBeenClosed = true;
         }
@@ -170,22 +158,23 @@ namespace Crayon
         this->m_IsFullscreen = !this->m_IsFullscreen;
 
         if (this->m_IsFullscreen)
-        { // GOING FULLSCREEN
-
+        {
             // Saving old size
             m_WindowedWidth = this->GetWidth();
             m_WindowedHeight = this->GetHeight();
 
+            // Setting fullscreen mode
             GLFWmonitor *monitor = glfwGetPrimaryMonitor();
             const GLFWvidmode *vidMode = glfwGetVideoMode(monitor);
-            glfwSetWindowMonitor(m_Window, monitor, 0, 0, vidMode->width, vidMode->height, vidMode->refreshRate);
-        } else
-        { // GOING WINDOWED
+            glfwSetWindowMonitor(p_Window, monitor, 0, 0, vidMode->width, vidMode->height, vidMode->refreshRate);
+        }
+        else
+        {
+            // Setting windowed mode
             int xPos, yPos;
             GetCenteredPosition(m_WindowedWidth, m_WindowedHeight, &xPos, &yPos);
-            glfwSetWindowMonitor(m_Window, NULL, xPos, yPos, m_WindowedWidth, m_WindowedHeight, GLFW_DONT_CARE);
+            glfwSetWindowMonitor(p_Window, NULL, xPos, yPos, m_WindowedWidth, m_WindowedHeight, GLFW_DONT_CARE);
         }
-
     }
 
     void Window::GetCenteredPosition(int width, int height, int *xPos, int *yPos)

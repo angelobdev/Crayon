@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glad/glad.h>
+
 #include <GLFW/glfw3.h>
 
 #include "Logger.h"
@@ -15,15 +16,17 @@ namespace Crayon
     class Window
     {
     private:
-        GLFWwindow *m_Window;
+        static bool s_GLFWInitialized;
 
+        GLFWwindow *p_Window;
         bool m_HasBeenClosed;
-
         int m_WindowedWidth, m_WindowedHeight;
         bool m_IsFullscreen;
 
     public:
         Window(const char *title, int width, int height);
+        Window(const Window &window) = delete;
+        Window() = delete;
 
         ~Window() { this->Close(); }
 
@@ -31,7 +34,7 @@ namespace Crayon
 
         static void PollEvents() { glfwPollEvents(); }
 
-        void SwapBuffers() { glfwSwapBuffers(m_Window); }
+        void SwapBuffers() { glfwSwapBuffers(p_Window); }
 
         void Close();
 
@@ -39,35 +42,34 @@ namespace Crayon
 
         // GETTERS AND SETTERS
 
-        bool ShouldClose() const { return glfwWindowShouldClose(m_Window); }
+        bool ShouldClose() const { return glfwWindowShouldClose(p_Window); }
 
         int GetWidth() const
         {
             int width;
-            glfwGetWindowSize(m_Window, &width, NULL);
+            glfwGetWindowSize(p_Window, &width, NULL);
             return width;
         }
 
         int GetHeight() const
         {
             int height;
-            glfwGetWindowSize(m_Window, NULL, &height);
+            glfwGetWindowSize(p_Window, NULL, &height);
             return height;
         }
 
-        GLFWwindow *GetPointer() { return m_Window; }
+        GLFWwindow *GetPointer() { return p_Window; }
 
         float GetAspectRatio()
         {
-            float ww = (float) GetWidth();
-            float hh = (float) GetHeight();
+            float ww = (float)GetWidth();
+            float hh = (float)GetHeight();
             float ar = ww / hh;
-//            CRAYON_CORE_TRACE("WINDOW: ({}, {}) = {}", ww, hh, ar);
+            //            CRAYON_CORE_TRACE("WINDOW: ({}, {}) = {}", ww, hh, ar);
             return ar;
         }
 
     private:
         static void GetCenteredPosition(int width, int height, int *xPos, int *yPos);
-
     };
 }

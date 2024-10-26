@@ -1,5 +1,5 @@
-#include "crypch.h"
 #include "Logger.h"
+#include "crypch.h"
 
 #include <spdlog/sinks/stdout_color_sinks.h>
 
@@ -10,7 +10,7 @@ namespace Crayon
 
     void Logger::Initialize()
     {
-        spdlog::set_pattern("%^[%T] %n: %v%$");
+        spdlog::set_pattern("%^[%T.%e] %n: %v%$");
 
         s_CoreLogger = spdlog::stdout_color_mt("CRAYON");
         s_CoreLogger->set_level(spdlog::level::trace);

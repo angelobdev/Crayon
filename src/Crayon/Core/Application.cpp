@@ -1,15 +1,14 @@
-#include "crypch.h"
 #include "Application.h"
 #include "Input.h"
+#include "crypch.h"
 
 namespace Crayon
 {
     // CONSTRUCTOR & DESTRUCTOR
 
     Application::Application(const char *title, int width, int height)
-            : m_Window(std::make_shared<Window>(title, width, height))
+        : p_Window(std::make_shared<Window>(title, width, height))
     {
-
     }
 
     Application::~Application() = default;
@@ -19,13 +18,16 @@ namespace Crayon
     void Application::Initialize()
     {
         CRAYON_CORE_INFO("Welcome to Crayon Engine!");
-        Crayon::ImGuiController::Initialize(m_Window.get());
+        Crayon::ImGuiController::Initialize(p_Window.get());
     }
 
     void Application::HandleEvents()
     {
         Event *lastEvent = EventDispatcher::Retrieve();
-        if (lastEvent != nullptr) { OnEvent(lastEvent); }
+        if (lastEvent != nullptr)
+        {
+            OnEvent(lastEvent);
+        }
         delete lastEvent;
     }
 
@@ -56,25 +58,25 @@ namespace Crayon
         {
             switch (wdEvent->GetWindowState())
             {
-                case WindowState::Closed:
-                    this->OnWindowClosed();
-                    break;
+            case WindowState::Closed:
+                this->OnWindowClosed();
+                break;
 
-                case WindowState::Resized:
-                    this->OnWindowResized(m_Window->GetWidth(), m_Window->GetHeight());
-                    break;
+            case WindowState::Resized:
+                this->OnWindowResized(p_Window->GetWidth(), p_Window->GetHeight());
+                break;
 
-                case WindowState::Minimized:
-                    this->OnWindowMinimized();
-                    break;
+            case WindowState::Minimized:
+                this->OnWindowMinimized();
+                break;
 
-                case WindowState::Focused:
-                    this->OnWindowGainFocus();
-                    break;
+            case WindowState::Focused:
+                this->OnWindowGainFocus();
+                break;
 
-                case WindowState::Unfocused:
-                    this->OnWindowLostFocus();
-                    break;
+            case WindowState::Unfocused:
+                this->OnWindowLostFocus();
+                break;
             }
         }
     }
@@ -86,12 +88,12 @@ namespace Crayon
         this->Initialize();
 
         double deltaTime = 0.01f;
-        while (!m_Window->ShouldClose())
+        while (!p_Window->ShouldClose())
         {
             double start = glfwGetTime();
 
             // Handling Events
-            m_Window->PollEvents();
+            p_Window->PollEvents();
             this->HandleEvents();
 
             // Update
@@ -105,7 +107,7 @@ namespace Crayon
             this->RenderUI();
             Crayon::ImGuiController::Draw();
 
-            m_Window->SwapBuffers();
+            p_Window->SwapBuffers();
 
             double end = glfwGetTime();
             deltaTime = end - start;
@@ -118,7 +120,7 @@ namespace Crayon
         while (EventDispatcher::GetQueueSize() > 0)
             this->HandleEvents();
 
-        m_Window->Close();
+        p_Window->Close();
         CRAYON_CORE_INFO("Bye! <3");
     }
 }

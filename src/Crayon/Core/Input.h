@@ -17,7 +17,6 @@ namespace Crayon
         static double s_MouseX, s_MouseY;
 
     public:
-
         // KEYBOARD FUNCTIONS
 
         static KeyState GetKey(const Key &key);
