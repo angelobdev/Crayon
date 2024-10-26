@@ -19,9 +19,8 @@ namespace Crayon
         static bool s_GLFWInitialized;
 
         GLFWwindow *p_Window;
-        bool m_HasBeenClosed;
         int m_WindowedWidth, m_WindowedHeight;
-        bool m_IsFullscreen;
+        bool m_IsFullscreen, m_HasBeenClosed, m_IsCursorDisabled;
 
     public:
         Window(const char *title, int width, int height);
@@ -40,9 +39,13 @@ namespace Crayon
 
         void ToggleFullscreen();
 
+        void ToggleCursor();
+
         // GETTERS AND SETTERS
 
         bool ShouldClose() const { return glfwWindowShouldClose(p_Window); }
+
+        bool IsCursorDisabled() const { return this->m_IsCursorDisabled; }
 
         int GetWidth() const
         {

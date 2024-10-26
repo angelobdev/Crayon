@@ -1,6 +1,7 @@
 #pragma once
 
 #include "crypch.h"
+#include <glm/glm.hpp>
 
 #include "Crayon/Events/Event.h"
 #include "Crayon/Events/KeyEvent.h"
@@ -36,6 +37,8 @@ namespace Crayon
         static double GetMouseX();
 
         static double GetMouseY();
+
+        static const glm::vec2 &GetMousePosition();
 
         static void MousePosCallback(double mouseX, double mouseY); // Callback
     };

@@ -5,7 +5,8 @@ namespace Crayon
     bool Window::s_GLFWInitialized = false;
 
     Window::Window(const char *title, int width, int height)
-        : m_HasBeenClosed(false), m_IsFullscreen(false), m_WindowedWidth(width), m_WindowedHeight(height)
+        : m_WindowedWidth(width), m_WindowedHeight(height),
+          m_HasBeenClosed(false), m_IsFullscreen(false), m_IsCursorDisabled(false)
     {
         // Initializing GLFW
         if (!s_GLFWInitialized)
@@ -178,6 +179,13 @@ namespace Crayon
             GetCenteredPosition(m_WindowedWidth, m_WindowedHeight, &xPos, &yPos);
             glfwSetWindowMonitor(p_Window, NULL, xPos, yPos, m_WindowedWidth, m_WindowedHeight, GLFW_DONT_CARE);
         }
+    }
+
+    void Window::ToggleCursor()
+    {
+        this->m_IsCursorDisabled = !this->m_IsCursorDisabled;
+        int glfwMode = this->m_IsCursorDisabled ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL;
+        glfwSetInputMode(p_Window, GLFW_CURSOR, glfwMode);
     }
 
     void Window::GetCenteredPosition(int width, int height, int *xPos, int *yPos)

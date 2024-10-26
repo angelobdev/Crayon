@@ -22,8 +22,8 @@ private:
     std::unique_ptr<Crayon::Shader> shader;
     std::unique_ptr<Crayon::Texture> texture;
 
-    glm::vec3 obj_position = glm::vec3(0.0f, 0.0f, -2.0f);
-    glm::vec3 cam_position = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 objectPosition = glm::vec3(0.0f, 0.0f, -2.0f);
+    std::unique_ptr<Crayon::Camera> camera;
 
 public:
     Sandbox() : Application("Sandbox", 800, 600)
@@ -39,22 +39,21 @@ public:
         indexBuffer = std::make_unique<Crayon::IndexBuffer>(indices);
         shader = std::make_unique<Crayon::Shader>("assets/shaders/basic.glsl", true);
         texture = std::make_unique<Crayon::Texture>("assets/textures/test.png");
+
+        camera = std::make_unique<Crayon::Camera>(glm::vec3(0, 0, 0));
     }
 
     void Update(double deltaTime) override
     {
-        if (Crayon::Input::GetKeyDown(GLFW_KEY_W))
-            cam_position.z += 1.0f * deltaTime;
-        if (Crayon::Input::GetKeyDown(GLFW_KEY_S))
-            cam_position.z -= 1.0f * deltaTime;
-        if (Crayon::Input::GetKeyDown(GLFW_KEY_A))
-            cam_position.x += 1.0f * deltaTime;
-        if (Crayon::Input::GetKeyDown(GLFW_KEY_D))
-            cam_position.x -= 1.0f * deltaTime;
-        if (Crayon::Input::GetKeyDown(GLFW_KEY_LEFT_SHIFT))
-            cam_position.y += 1.0f * deltaTime;
-        if (Crayon::Input::GetKeyDown(GLFW_KEY_SPACE))
-            cam_position.y -= 1.0f * deltaTime;
+        if (Crayon::Input::GetKey(GLFW_KEY_ESCAPE) == Crayon::KeyState::Touched)
+        {
+            p_Window->ToggleCursor();
+        }
+
+        if (p_Window->IsCursorDisabled())
+        {
+            camera->Update(static_cast<float>(deltaTime));
+        }
     }
 
     void Render() override
@@ -63,8 +62,8 @@ public:
 
         shader->Bind();
 
-        shader->SetUniformMatrix4f("u_Model", glm::translate(glm::mat4(1.0f), obj_position));
-        shader->SetUniformMatrix4f("u_View", glm::translate(glm::mat4(1.0f), cam_position));
+        shader->SetUniformMatrix4f("u_Model", glm::translate(glm::mat4(1.0f), objectPosition));
+        shader->SetUniformMatrix4f("u_View", camera->GetView());
 
         shader->SetUniformMatrix4f("u_Projection",
                                    glm::perspective(
@@ -91,8 +90,12 @@ public:
     {
         // UI RENDERING
         ImGui::Begin("Controller");
-        ImGui::SliderFloat3("Camera Position", &cam_position.x, -10.0f, 10.0f);
-        ImGui::SliderFloat3("Object Position", &obj_position.x, -10.0f, 10.0f);
+        ImGui::SliderFloat3("Object Position", &objectPosition.x, -10.0f, 10.0f);
+        ImGui::Text("Camera Position: (%.2f, %.2f, %.2f)", camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
+        ImGui::Text("Pitch: %.2f | Yaw: %.2f | Roll: %.2f)", camera->GetRotation().x, camera->GetRotation().y, camera->GetRotation().z);
+        ImGui::Text("Camera Up: (%.2f, %.2f, %.2f)", camera->GetUp().x, camera->GetUp().y, camera->GetUp().z);
+        ImGui::Text("Camera Front: (%.2f, %.2f, %.2f)", camera->GetFront().x, camera->GetFront().y, camera->GetFront().z);
+        ImGui::Text("Camera Right: (%.2f, %.2f, %.2f)", camera->GetRight().x, camera->GetRight().y, camera->GetRight().z);
         ImGui::End();
     }
 

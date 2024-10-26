@@ -14,6 +14,7 @@
 #include "Crayon/Events/WindowEvent.h"
 
 // GRAPHICS
+#include "Crayon/Graphics/Camera.h"
 #include "Crayon/Graphics/IndexBuffer.h"
 #include "Crayon/Graphics/Shader.h"
 #include "Crayon/Graphics/Texture.h"

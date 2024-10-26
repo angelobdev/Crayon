@@ -5,11 +5,9 @@ namespace Crayon
 {
     // INITIALIZATIONS
 
-    std::unordered_map<Key, KeyState> Input::s_KeyMap
-            = std::unordered_map<Key, KeyState>(104);
+    std::unordered_map<Key, KeyState> Input::s_KeyMap = std::unordered_map<Key, KeyState>(104);
 
-    std::unordered_map<MouseButton, MouseButtonState> Input::s_MouseMap
-            = std::unordered_map<MouseButton, MouseButtonState>(4);
+    std::unordered_map<MouseButton, MouseButtonState> Input::s_MouseMap = std::unordered_map<MouseButton, MouseButtonState>(4);
 
     double Input::s_MouseX = 0.0f, Input::s_MouseY = 0.0f;
 
@@ -46,10 +44,22 @@ namespace Crayon
     // CURSOR FUNCTIONS
 
     double Input::GetMouseX()
-    { return s_MouseX; }
+    {
+        return s_MouseX;
+    }
 
     double Input::GetMouseY()
-    { return s_MouseY; }
+    {
+        return s_MouseY;
+    }
+
+    const glm::vec2 &Input::GetMousePosition()
+    {
+        static glm::vec2 mousePosition(s_MouseX, s_MouseY);
+        mousePosition.x = s_MouseX;
+        mousePosition.y = s_MouseY;
+        return mousePosition;
+    }
 
     void Input::MousePosCallback(double mouseX, double mouseY)
     {

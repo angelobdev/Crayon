@@ -1,8 +1,14 @@
 #pragma once
 
+#include "crypch.h"
+
 #include "Crayon/Core/Base.h"
 #include "Crayon/Core/Logger.h"
-#include "crypch.h"
+
+#include "Crayon/Events/KeyEvent.h"
+#include "Crayon/Events/MouseEvent.h"
+#include "Crayon/Events/WindowEvent.h"
+
 #include <debugbreak.h>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
