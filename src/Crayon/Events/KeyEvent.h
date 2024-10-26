@@ -1,32 +1,36 @@
 #pragma once
 
 #include "Event.h"
+#include <string>
 
 namespace Crayon
 {
     using Key = int;
     enum class KeyState
     {
-        Null, Touched, Pressed, Released
+        Null,
+        Touched,
+        Pressed,
+        Released
     };
 
     static const char *GetKeyStateName(const KeyState &state)
     {
-        char *name = (char *) malloc(sizeof(char) * 24);
+        const char *name = nullptr;
         switch (state)
         {
-            case KeyState::Null:
-                sprintf(name, "Null");
-                break;
-            case KeyState::Touched:
-                sprintf(name, "Touched");
-                break;
-            case KeyState::Pressed:
-                sprintf(name, "Pressed");
-                break;
-            case KeyState::Released:
-                sprintf(name, "Released");
-                break;
+        case KeyState::Null:
+            name = "Null";
+            break;
+        case KeyState::Touched:
+            name = "Touched";
+            break;
+        case KeyState::Pressed:
+            name = "Pressed";
+            break;
+        case KeyState::Released:
+            name = "Released";
+            break;
         }
         return name;
     }
@@ -39,13 +43,19 @@ namespace Crayon
 
     public:
         KeyEvent(Key key, KeyState state) : m_Key(key), m_KeyState(state)
-        { m_IsNull = false; }
+        {
+            m_IsNull = false;
+        }
 
         Key GetKey() const
-        { return m_Key; }
+        {
+            return m_Key;
+        }
 
         KeyState GetKeyState() const
-        { return m_KeyState; }
+        {
+            return m_KeyState;
+        }
 
         // Override
         std::string GetName() const override
@@ -56,17 +66,17 @@ namespace Crayon
 
             switch (m_KeyState)
             {
-                case KeyState::Touched:
-                    name.append("Touched");
-                    break;
-                case KeyState::Pressed:
-                    name.append("Pressed");
-                    break;
-                case KeyState::Released:
-                    name.append("Released");
-                    break;
-                case KeyState::Null:
-                    break;
+            case KeyState::Touched:
+                name.append("Touched");
+                break;
+            case KeyState::Pressed:
+                name.append("Pressed");
+                break;
+            case KeyState::Released:
+                name.append("Released");
+                break;
+            case KeyState::Null:
+                break;
             }
 
             return name;

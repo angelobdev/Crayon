@@ -66,7 +66,9 @@ set(CRAYON_VENDOR_DIR "vendor")
 
 # spdlog
 set(SPDLOG_DIR "${CRAYON_VENDOR_DIR}/spdlog")
+add_subdirectory("${SPDLOG_DIR}")
 target_include_directories(Crayon PUBLIC "${SPDLOG_DIR}/include")
+target_link_libraries(Crayon PRIVATE "spdlog")
 
 # glfw
 set(GLFW_DIR "${CRAYON_VENDOR_DIR}/glfw")
