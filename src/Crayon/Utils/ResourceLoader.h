@@ -7,7 +7,6 @@ namespace Crayon
     class ResourceLoader
     {
     public:
-        static std::string LoadFileAsString(const std::string &fileName, bool trace = false);
+        static std::string LoadFileAsString(const std::string &fileName);
     };
 }
-
