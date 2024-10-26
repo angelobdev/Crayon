@@ -1,26 +1,28 @@
 #include "Crayon.h"
 
-class Sandbox : public Crayon::Application
+using namespace Crayon;
+
+class Sandbox : public Application
 {
 private:
     std::vector<float> vertices = {
-            // POSITION         // COLOR         // TEXTURE COORD
-            -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-            +0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-            -0.5f, +0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-            +0.5f, +0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+        // POSITION         // COLOR         // TEXTURE COORD
+        -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // v1
+        +0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // v2
+        -0.5f, +0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // v3
+        +0.5f, +0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // v4
     };
 
     std::vector<unsigned int> indices = {
-            0, 1, 2,
-            1, 3, 2
+        0, 1, 2, // t1
+        1, 3, 2, // t2
     };
 
-    Crayon::VertexArray vertexArray;
-    Crayon::VertexBuffer vertexBuffer;
-    Crayon::IndexBuffer indexBuffer;
-    Crayon::Shader shader;
-    Crayon::Texture texture;
+    VertexArray vertexArray;
+    VertexBuffer vertexBuffer;
+    IndexBuffer indexBuffer;
+    Shader shader;
+    Texture texture;
 
     glm::vec3 obj_position = glm::vec3(0.0f, 0.0f, -2.0f);
     glm::vec3 cam_position = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -37,22 +39,25 @@ public:
 
         // Linking Vertex Buffer to Vertex Array
         vertexArray.LinkBuffer(vertexBuffer,
-                               Crayon::VertexLayout({
-                                                            {3, GL_FLOAT},
-                                                            {3, GL_FLOAT},
-                                                            {2, GL_FLOAT}
-                                                    }));
-
+                               VertexLayout({{3, GL_FLOAT},
+                                             {3, GL_FLOAT},
+                                             {2, GL_FLOAT}}));
     }
 
     void Update(double deltaTime) override
     {
-        if (Crayon::Input::GetKeyDown(GLFW_KEY_W)) cam_position.z += 1.0f * deltaTime;
-        if (Crayon::Input::GetKeyDown(GLFW_KEY_S)) cam_position.z -= 1.0f * deltaTime;
-        if (Crayon::Input::GetKeyDown(GLFW_KEY_A)) cam_position.x += 1.0f * deltaTime;
-        if (Crayon::Input::GetKeyDown(GLFW_KEY_D)) cam_position.x -= 1.0f * deltaTime;
-        if (Crayon::Input::GetKeyDown(GLFW_KEY_LEFT_SHIFT)) cam_position.y += 1.0f * deltaTime;
-        if (Crayon::Input::GetKeyDown(GLFW_KEY_SPACE)) cam_position.y -= 1.0f * deltaTime;
+        if (Input::GetKeyDown(GLFW_KEY_W))
+            cam_position.z += 1.0f * deltaTime;
+        if (Input::GetKeyDown(GLFW_KEY_S))
+            cam_position.z -= 1.0f * deltaTime;
+        if (Input::GetKeyDown(GLFW_KEY_A))
+            cam_position.x += 1.0f * deltaTime;
+        if (Input::GetKeyDown(GLFW_KEY_D))
+            cam_position.x -= 1.0f * deltaTime;
+        if (Input::GetKeyDown(GLFW_KEY_LEFT_SHIFT))
+            cam_position.y += 1.0f * deltaTime;
+        if (Input::GetKeyDown(GLFW_KEY_SPACE))
+            cam_position.y -= 1.0f * deltaTime;
     }
 
     void Render() override
@@ -64,16 +69,12 @@ public:
         shader.SetUniformMatrix4f("u_Model", glm::translate(glm::mat4(1.0f), obj_position));
         shader.SetUniformMatrix4f("u_View", glm::translate(glm::mat4(1.0f), cam_position));
 
-        shader.SetUniformMatrix4f
-                ("u_Projection",
-                 glm::perspective
-                         (
-                                 glm::radians(70.0f),
-                                 m_Window->GetAspectRatio(),
-                                 0.0f,
-                                 100.0f
-                         )
-                );
+        shader.SetUniformMatrix4f("u_Projection",
+                                  glm::perspective(
+                                      glm::radians(70.0f),
+                                      m_Window->GetAspectRatio(),
+                                      0.0f,
+                                      100.0f));
 
         texture.Bind(1);
         shader.SetUniform1i("u_Texture", 1);
@@ -100,12 +101,10 @@ public:
 
     ~Sandbox() override
     {
-
     }
-
 };
 
-Crayon::Application *Crayon::CreateApplication()
+Application *CreateApplication()
 {
     return new Sandbox();
 }
