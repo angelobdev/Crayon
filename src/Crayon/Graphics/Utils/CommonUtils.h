@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Crayon/Graphics/Common.h>
+#include "Crayon/Graphics/GLCommon.h"
 
 namespace Crayon
 {

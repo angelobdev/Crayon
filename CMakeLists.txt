@@ -41,17 +41,13 @@ add_library(Crayon STATIC
         src/Crayon/Graphics/ImGui/ImGuiController.h
         src/Crayon/Graphics/ImGui/ImGuiController.cpp
 
-        src/Crayon/Graphics/Common.h
-        src/Crayon/Graphics/Core/VertexArray.h
-        src/Crayon/Graphics/Core/VertexArray.cpp
-        src/Crayon/Graphics/Core/VertexBuffer.h
-        src/Crayon/Graphics/Core/VertexBuffer.cpp
-        src/Crayon/Graphics/Core/IndexBuffer.h
-        src/Crayon/Graphics/Core/IndexBuffer.cpp
-        src/Crayon/Graphics/Core/Shader.h
-        src/Crayon/Graphics/Core/Shader.cpp
-        src/Crayon/Graphics/Core/Texture.h
-        src/Crayon/Graphics/Core/Texture.cpp
+        src/Crayon/Graphics/GLCommon.h
+        src/Crayon/Graphics/VertexArray.h
+        src/Crayon/Graphics/VertexBuffer.h        
+        src/Crayon/Graphics/IndexBuffer.h
+        src/Crayon/Graphics/Shader.h
+        src/Crayon/Graphics/Texture.h
+        
 
         src/Crayon/Utils/ResourceLoader.cpp
         src/Crayon/Utils/ResourceLoader.h
