@@ -51,8 +51,7 @@ add_library(Crayon STATIC
 
         src/Crayon/Utils/ResourceLoader.cpp
         src/Crayon/Utils/ResourceLoader.h
-        src/Crayon/Graphics/Utils/CommonUtils.cpp
-        src/Crayon/Graphics/Utils/CommonUtils.h src/Crayon/Graphics/Utils/VertexLayout.cpp src/Crayon/Graphics/Utils/VertexLayout.h)
+)
 
 target_include_directories(Crayon PUBLIC "src")
 target_precompile_headers(Crayon PUBLIC "src/crypch.h")

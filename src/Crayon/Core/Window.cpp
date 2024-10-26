@@ -40,6 +40,8 @@ namespace Crayon
         GetCenteredPosition(width, height, &xPos, &yPos);
         glfwSetWindowPos(p_Window, xPos, yPos);
 
+        CRAYON_CORE_TRACE("Initializing Event System...");
+
         // Key Callbacks
         glfwSetKeyCallback(p_Window, [](GLFWwindow *window, int key, int scancode, int action, int mods)
                            {
@@ -133,6 +135,7 @@ namespace Crayon
         glfwMakeContextCurrent(p_Window);
 
         // Initializing OpenGL
+        CRAYON_CORE_TRACE("Initializing OpenGL...");
         if (!gladLoadGL())
         {
             CRAYON_CORE_FATAL("Failed to initialize OpenGL!");
