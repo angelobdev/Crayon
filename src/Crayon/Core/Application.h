@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Base.h"
-#include "Crayon/Graphics/ImGui/ImGuiController.h"
+#include "Crayon/Events/Event.h"
+#include "Crayon/Graphics/GUI/ImGuiController.h"
 #include "Window.h"
 
-namespace Crayon
+namespace Crayon::Core
 {
     class Application
     {
@@ -48,5 +49,6 @@ namespace Crayon
         void Initialize();
     };
 
-    Application *CreateApplication(); // To be defined in client
 }
+
+Crayon::Core::Application *CreateApplication(); // To be defined in client

@@ -1,11 +1,11 @@
 #include "ImGuiController.h"
 
-namespace Crayon
+namespace Crayon::Graphics::GUI
 {
-    Crayon::Window *ImGuiController::s_Window;
+    Crayon::Core::Window *ImGuiController::s_Window;
     ImGuiIO ImGuiController::s_IO;
 
-    void ImGuiController::Initialize(Crayon::Window *window)
+    void ImGuiController::Initialize(Crayon::Core::Window *window)
     {
         // Setup window pointer
         s_Window = window;
@@ -96,5 +96,7 @@ namespace Crayon
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
+
+        delete s_Window;
     }
 }

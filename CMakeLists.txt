@@ -27,19 +27,24 @@ add_library(Crayon STATIC
         src/Crayon/Events/MouseEvent.h
         src/Crayon/Events/WindowEvent.h
 
-        src/Crayon/Graphics/GLCommon.h
-        src/Crayon/Graphics/VertexArray.h
-        src/Crayon/Graphics/VertexBuffer.h        
-        src/Crayon/Graphics/IndexBuffer.h
-        src/Crayon/Graphics/Shader.h
-        src/Crayon/Graphics/Texture.h
+        src/Crayon/Graphics/Core/OpenGL.h
+        src/Crayon/Graphics/Core/VertexArray.h
+        src/Crayon/Graphics/Core/VertexBuffer.h        
+        src/Crayon/Graphics/Core/IndexBuffer.h
+        src/Crayon/Graphics/Core/Shader.h
+        src/Crayon/Graphics/Core/Texture.h
 
-        src/Crayon/Graphics/ImGui/imgui_impl_glfw.cpp
-        src/Crayon/Graphics/ImGui/imgui_impl_glfw.h
-        src/Crayon/Graphics/ImGui/imgui_impl_opengl3.cpp
-        src/Crayon/Graphics/ImGui/imgui_impl_opengl3.h
-        src/Crayon/Graphics/ImGui/ImGuiController.h
-        src/Crayon/Graphics/ImGui/ImGuiController.cpp
+        src/Crayon/Graphics/Camera.h
+        src/Crayon/Graphics/Directions.h
+        src/Crayon/Graphics/Material.h
+        src/Crayon/Graphics/Mesh.h
+
+        src/Crayon/Graphics/GUI/imgui_impl_glfw.cpp
+        src/Crayon/Graphics/GUI/imgui_impl_glfw.h
+        src/Crayon/Graphics/GUI/imgui_impl_opengl3.cpp
+        src/Crayon/Graphics/GUI/imgui_impl_opengl3.h
+        src/Crayon/Graphics/GUI/ImGuiController.h
+        src/Crayon/Graphics/GUI/ImGuiController.cpp
 
         src/Crayon/Utils/ResourceLoader.cpp
         src/Crayon/Utils/ResourceLoader.h

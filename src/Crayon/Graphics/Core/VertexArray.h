@@ -1,11 +1,8 @@
 #pragma once
 
-#include "Crayon/Graphics/GLCommon.h"
+#include "OpenGL.h"
 
-#include "IndexBuffer.h"
-#include "VertexBuffer.h"
-
-namespace Crayon
+namespace Crayon::Graphics::Core
 {
     class VertexArray
     {

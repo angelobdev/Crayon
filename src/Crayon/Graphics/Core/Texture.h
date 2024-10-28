@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Crayon/Graphics/GLCommon.h"
+#include "OpenGL.h"
 #include "Crayon/Utils/ResourceLoader.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-namespace Crayon
+namespace Crayon::Graphics::Core
 {
     class Texture
     {

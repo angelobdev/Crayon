@@ -1,19 +1,10 @@
 #pragma once
 
-#include "Crayon/Graphics/GLCommon.h"
+#include "Core/OpenGL.h"
+#include "Directions.h"
 
-namespace Crayon
+namespace Crayon::Graphics
 {
-    struct Directions
-    {
-        static const glm::vec3 UP;
-        static const glm::vec3 DOWN;
-        static const glm::vec3 LEFT;
-        static const glm::vec3 RIGHT;
-        static const glm::vec3 FORWARD;
-        static const glm::vec3 BACK;
-    };
-
     const glm::vec3 Directions::UP = glm::vec3(0.0f, 1.0f, 0.0f);
     const glm::vec3 Directions::DOWN = glm::vec3(0.0f, -1.0f, 0.0f);
     const glm::vec3 Directions::LEFT = glm::vec3(-1.0f, 0.0f, 0.0f);
@@ -39,15 +30,17 @@ namespace Crayon
               m_Front(Directions::FORWARD),
               m_Right(Directions::RIGHT),
               m_Sensitivity(50),
-              m_View(glm::lookAt(position, position + Directions::FORWARD, Directions::UP))
+              m_View(glm::lookAt(position, position + Directions::FORWARD, Directions::UP)),
+
         {
-            this->m_LastMousePos = glm::vec2(0, 0);
+            this->m_LastMousePos = Crayon::Core::Input::GetCursorPosition();
         }
 
         void Update(const float deltaTime)
         {
+
             // Handling Mouse
-            auto newMousePos = Crayon::Input::GetCursorPosition();
+            auto newMousePos = Crayon::Core::Input::GetCursorPosition();
             auto mouseOffset = (newMousePos - this->m_LastMousePos) * (deltaTime * this->m_Sensitivity);
 
             // Yaw
@@ -72,17 +65,17 @@ namespace Crayon
             this->m_LastMousePos = newMousePos;
 
             // Handling Keyboard
-            if (Crayon::Input::GetKeyDown(Crayon::Events::KeyCode::W))
+            if (Crayon::Core::Input::GetKeyDown(Crayon::Events::KeyCode::W))
                 m_Position += m_Front * deltaTime;
-            if (Crayon::Input::GetKeyDown(Crayon::Events::KeyCode::S))
+            if (Crayon::Core::Input::GetKeyDown(Crayon::Events::KeyCode::S))
                 m_Position -= m_Front * deltaTime;
-            if (Crayon::Input::GetKeyDown(Crayon::Events::KeyCode::D))
+            if (Crayon::Core::Input::GetKeyDown(Crayon::Events::KeyCode::D))
                 m_Position += m_Right * deltaTime;
-            if (Crayon::Input::GetKeyDown(Crayon::Events::KeyCode::A))
+            if (Crayon::Core::Input::GetKeyDown(Crayon::Events::KeyCode::A))
                 m_Position -= m_Right * deltaTime;
-            if (Crayon::Input::GetKeyDown(Crayon::Events::KeyCode::LSHIFT))
+            if (Crayon::Core::Input::GetKeyDown(Crayon::Events::KeyCode::LSHIFT))
                 m_Position += Directions::DOWN * deltaTime;
-            if (Crayon::Input::GetKeyDown(Crayon::Events::KeyCode::SPACE))
+            if (Crayon::Core::Input::GetKeyDown(Crayon::Events::KeyCode::SPACE))
                 m_Position += Directions::UP * deltaTime;
 
             // Updating matrix

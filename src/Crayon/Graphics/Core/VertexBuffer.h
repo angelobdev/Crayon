@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Crayon/Graphics/GLCommon.h"
+#include "OpenGL.h"
 
-namespace Crayon
+namespace Crayon::Graphics::Core
 {
 
     struct VertexLayout

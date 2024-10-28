@@ -1,6 +1,6 @@
 #include "Window.h"
 
-namespace Crayon
+namespace Crayon::Core
 {
     bool Window::s_GLFWInitialized = false;
 

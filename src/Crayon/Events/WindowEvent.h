@@ -1,8 +1,6 @@
 #pragma once
 
-namespace Crayon
-{
-    namespace Events
+namespace Crayon::Events
     {
         enum WindowState
         {
@@ -28,4 +26,4 @@ namespace Crayon
             }
         };
     }
-}
+

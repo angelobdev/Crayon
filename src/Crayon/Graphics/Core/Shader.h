@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Crayon/Graphics/GLCommon.h"
 #include "Crayon/Utils/ResourceLoader.h"
+#include "OpenGL.h"
 
-namespace Crayon
+namespace Crayon::Graphics::Core
 {
     class Shader
     {

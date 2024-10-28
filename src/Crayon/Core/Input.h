@@ -8,7 +8,7 @@
 #include "Crayon/Events/MouseEvent.h"
 #include "Crayon/Events/WindowEvent.h"
 
-namespace Crayon
+namespace Crayon::Core
 {
     class Input
     {

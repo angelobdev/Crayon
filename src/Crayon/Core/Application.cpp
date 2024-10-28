@@ -1,8 +1,6 @@
 #include "Application.h"
-#include "Input.h"
-#include "crypch.h"
 
-namespace Crayon
+namespace Crayon::Core
 {
     // CONSTRUCTOR & DESTRUCTOR
 
@@ -21,7 +19,7 @@ namespace Crayon
         Crayon::Events::Handler::Initialize(*p_Window.get());
 
         CRAYON_CORE_TRACE("Initializing ImGui Controller...");
-        Crayon::ImGuiController::Initialize(p_Window.get());
+        Crayon::Graphics::GUI::ImGuiController::Initialize(p_Window.get());
 
         CRAYON_CORE_INFO("Application has been initialized successfully!");
     }
@@ -47,9 +45,9 @@ namespace Crayon
             this->Render();
 
             // UI (ImGui)
-            Crayon::ImGuiController::NewFrame();
+            Crayon::Graphics::GUI::ImGuiController::NewFrame();
             this->RenderUI();
-            Crayon::ImGuiController::Draw();
+            Crayon::Graphics::GUI::ImGuiController::Draw();
 
             p_Window->SwapBuffers();
 
@@ -58,7 +56,7 @@ namespace Crayon
         }
 
         // Terminating ImGui
-        ImGuiController::Terminate();
+        Crayon::Graphics::GUI::ImGuiController::Terminate();
 
         p_Window->Close();
         CRAYON_CORE_INFO("Bye! <3");

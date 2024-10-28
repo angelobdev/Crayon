@@ -5,9 +5,9 @@
 
 int main(int argc, char **argv)
 {
-    Crayon::Logger::Initialize();
+    Crayon::Core::Logger::Initialize();
     CRAYON_CORE_TRACE("Creating application...");
-    auto *app = Crayon::CreateApplication();
+    auto *app = CreateApplication();
     app->Run();
     return EXIT_SUCCESS;
 }

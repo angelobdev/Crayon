@@ -3,7 +3,7 @@
 
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-namespace Crayon
+namespace Crayon::Core
 {
     std::shared_ptr<spdlog::logger> Logger::s_CoreLogger;
     std::shared_ptr<spdlog::logger> Logger::s_ClientLogger;

@@ -8,18 +8,20 @@
 
 // EVENT SYSTEM
 #include "Crayon/Core/Input.h"
-#include "Crayon/Events/Event.h"
-#include "Crayon/Events/KeyEvent.h"
-#include "Crayon/Events/MouseEvent.h"
-#include "Crayon/Events/WindowEvent.h"
 
 // GRAPHICS
+
+#include "Crayon/Graphics/Core/IndexBuffer.h"
+#include "Crayon/Graphics/Core/OpenGL.h"
+#include "Crayon/Graphics/Core/Shader.h"
+#include "Crayon/Graphics/Core/Texture.h"
+#include "Crayon/Graphics/Core/VertexArray.h"
+#include "Crayon/Graphics/Core/VertexBuffer.h"
+
 #include "Crayon/Graphics/Camera.h"
-#include "Crayon/Graphics/IndexBuffer.h"
-#include "Crayon/Graphics/Shader.h"
-#include "Crayon/Graphics/Texture.h"
-#include "Crayon/Graphics/VertexArray.h"
-#include "Crayon/Graphics/VertexBuffer.h"
+#include "Crayon/Graphics/Directions.h"
+#include "Crayon/Graphics/Material.h"
+#include "Crayon/Graphics/Mesh.h"
 
 // UTILITIES
 #include "Crayon/Utils/ResourceLoader.h"

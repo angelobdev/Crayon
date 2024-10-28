@@ -2,9 +2,7 @@
 
 #include <GLFW/glfw3.h>
 
-namespace Crayon
-{
-    namespace Events
+namespace Crayon:: Events
     {
         enum class MouseButton
         {
@@ -41,4 +39,3 @@ namespace Crayon
             }
         };
     }
-}

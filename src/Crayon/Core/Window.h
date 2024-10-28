@@ -6,7 +6,7 @@
 
 #include "Logger.h"
 
-namespace Crayon
+namespace Crayon::Core
 {
     class Window
     {
