@@ -35,9 +35,12 @@ add_library(Crayon STATIC
         src/Crayon/Graphics/Core/Texture.h
 
         src/Crayon/Graphics/Camera.h
+        src/Crayon/Graphics/Directions.cpp
         src/Crayon/Graphics/Directions.h
+        src/Crayon/Graphics/GameObject.h
         src/Crayon/Graphics/Material.h
         src/Crayon/Graphics/Mesh.h
+        src/Crayon/Graphics/Renderer.h
 
         src/Crayon/Graphics/GUI/imgui_impl_glfw.cpp
         src/Crayon/Graphics/GUI/imgui_impl_glfw.h

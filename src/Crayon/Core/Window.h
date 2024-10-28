@@ -58,13 +58,9 @@ namespace Crayon::Core
 
         GLFWwindow *GetPointer() const { return p_Window; }
 
-        float GetAspectRatio()
+        float GetAspectRatio() const
         {
-            float ww = (float)GetWidth();
-            float hh = (float)GetHeight();
-            float ar = ww / hh;
-            //            CRAYON_CORE_TRACE("WINDOW: ({}, {}) = {}", ww, hh, ar);
-            return ar;
+            return (float)GetWidth() / (float)GetHeight();
         }
 
     private:

@@ -5,32 +5,31 @@
 
 namespace Crayon::Graphics
 {
-    const glm::vec3 Directions::UP = glm::vec3(0.0f, 1.0f, 0.0f);
-    const glm::vec3 Directions::DOWN = glm::vec3(0.0f, -1.0f, 0.0f);
-    const glm::vec3 Directions::LEFT = glm::vec3(-1.0f, 0.0f, 0.0f);
-    const glm::vec3 Directions::RIGHT = glm::vec3(1.0f, 0.0f, 0.0f);
-    const glm::vec3 Directions::FORWARD = glm::vec3(0.0f, 0.0f, -1.0f);
-    const glm::vec3 Directions::BACK = glm::vec3(0.0f, 0.0f, 1.0f);
-
     class Camera
     {
     private:
         glm::vec3 m_Position, m_Rotation; // (X, Y, Z) (Pitch, Yaw, Roll)
         glm::vec3 m_Up, m_Front, m_Right;
-        glm::mat4 m_View;
+        glm::mat4 m_View, m_Projection;
 
         float m_Sensitivity;
         glm::vec2 m_LastMousePos;
 
     public:
-        Camera(const glm::vec3 &position)
+        Camera(const glm::vec3 &position, const glm::vec3 &rotation, const Crayon::Core::Window &window)
             : m_Position(position),
-              m_Rotation(0, 0, 0),
+              m_Rotation(rotation),
               m_Up(Directions::UP),
               m_Front(Directions::FORWARD),
               m_Right(Directions::RIGHT),
               m_Sensitivity(50),
               m_View(glm::lookAt(position, position + Directions::FORWARD, Directions::UP)),
+              m_Projection(
+                  glm::perspective(
+                      glm::radians(70.0f),
+                      window.GetAspectRatio(),
+                      0.1f,
+                      100.0f))
 
         {
             this->m_LastMousePos = Crayon::Core::Input::GetCursorPosition();
@@ -38,7 +37,6 @@ namespace Crayon::Graphics
 
         void Update(const float deltaTime)
         {
-
             // Handling Mouse
             auto newMousePos = Crayon::Core::Input::GetCursorPosition();
             auto mouseOffset = (newMousePos - this->m_LastMousePos) * (deltaTime * this->m_Sensitivity);
@@ -92,6 +90,7 @@ namespace Crayon::Graphics
         const glm::vec3 &GetRight() const { return m_Right; }
 
         const glm::mat4 &GetView() const { return m_View; }
+        const glm::mat4 &GetProjection() const { return m_Projection; }
 
         float GetSensitivity() const { return m_Sensitivity; }
 

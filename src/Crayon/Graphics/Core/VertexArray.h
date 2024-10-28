@@ -17,7 +17,10 @@ namespace Crayon::Graphics::Core
             GLCall(glGenVertexArrays(1, &this->m_ID));
         }
 
-        ~VertexArray() {}
+        ~VertexArray()
+        {
+            GLCall(glDeleteVertexArrays(1, &this->m_ID));
+        }
 
         // METHODS
 

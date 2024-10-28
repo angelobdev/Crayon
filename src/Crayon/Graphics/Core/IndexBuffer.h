@@ -21,7 +21,10 @@ namespace Crayon::Graphics::Core
             GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
         }
 
-        ~IndexBuffer() {}
+        ~IndexBuffer()
+        {
+            GLCall(glDeleteBuffers(1, &this->m_ID));
+        }
 
         // METHODS
 

@@ -55,7 +55,10 @@ namespace Crayon::Graphics::Core
             GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
         }
 
-        ~VertexBuffer() {}
+        ~VertexBuffer()
+        {
+            GLCall(glDeleteBuffers(1, &this->m_ID));
+        }
 
         // METHODS
 
