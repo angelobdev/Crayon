@@ -11,15 +11,15 @@ project(Crayon VERSION 1.0.0)
 add_library(Crayon STATIC
         src/Crayon.h # File to be included inside projects
 
-        src/Crayon/Core/Base.h
-
-        src/Crayon/Core/Application.h
         src/Crayon/Core/Application.cpp
-
+        src/Crayon/Core/Application.h
+        src/Crayon/Core/Base.h
         src/Crayon/Core/EntryPoint.h
-
-        src/Crayon/Core/Logger.h
+        src/Crayon/Core/Input.h
         src/Crayon/Core/Logger.cpp
+        src/Crayon/Core/Logger.h
+        src/Crayon/Core/Window.cpp
+        src/Crayon/Core/Window.h
 
         src/Crayon/Events/Event.h
         src/Crayon/Events/Event.cpp
@@ -27,27 +27,19 @@ add_library(Crayon STATIC
         src/Crayon/Events/MouseEvent.h
         src/Crayon/Events/WindowEvent.h
 
-        src/Crayon/Core/Window.h
-        src/Crayon/Core/Window.cpp
-
-        src/Crayon/Core/Input.h
-        src/Crayon/Core/Input.cpp
-
-        src/Crayon/Graphics/ImGui/imgui_impl_glfw.cpp
-        src/Crayon/Graphics/ImGui/imgui_impl_glfw.h
-        src/Crayon/Graphics/ImGui/imgui_impl_opengl3.cpp
-        src/Crayon/Graphics/ImGui/imgui_impl_opengl3.h
-
-        src/Crayon/Graphics/ImGui/ImGuiController.h
-        src/Crayon/Graphics/ImGui/ImGuiController.cpp
-
         src/Crayon/Graphics/GLCommon.h
         src/Crayon/Graphics/VertexArray.h
         src/Crayon/Graphics/VertexBuffer.h        
         src/Crayon/Graphics/IndexBuffer.h
         src/Crayon/Graphics/Shader.h
         src/Crayon/Graphics/Texture.h
-        
+
+        src/Crayon/Graphics/ImGui/imgui_impl_glfw.cpp
+        src/Crayon/Graphics/ImGui/imgui_impl_glfw.h
+        src/Crayon/Graphics/ImGui/imgui_impl_opengl3.cpp
+        src/Crayon/Graphics/ImGui/imgui_impl_opengl3.h
+        src/Crayon/Graphics/ImGui/ImGuiController.h
+        src/Crayon/Graphics/ImGui/ImGuiController.cpp
 
         src/Crayon/Utils/ResourceLoader.cpp
         src/Crayon/Utils/ResourceLoader.h

@@ -12,34 +12,61 @@ namespace Crayon
 {
     class Input
     {
-    private:
-        static std::unordered_map<Key, KeyState> s_KeyMap;
-        static std::unordered_map<MouseButton, MouseButtonState> s_MouseMap;
-        static double s_MouseX, s_MouseY;
-
     public:
+        static void Initialize(const Window &window)
+        {
+            Events::Handler::Initialize(window);
+        }
+
         // KEYBOARD FUNCTIONS
 
-        static KeyState GetKey(const Key &key);
+        static const bool GetKeyTouched(const Events::KeyCode &key)
+        {
+            return Events::Handler::GetKeyState(key) == Events::KeyState::Touched;
+        }
 
-        static bool GetKeyDown(const Key &key);
+        static const bool GetKeyPressed(const Events::KeyCode &key)
+        {
+            return Events::Handler::GetKeyState(key) == Events::KeyState::Pressed;
+        }
 
-        static void KeyCallback(const Key &key, const KeyState &keyState); // Callback
+        static const bool GetKeyReleased(const Events::KeyCode &key)
+        {
+            return Events::Handler::GetKeyState(key) == Events::KeyState::Released;
+        }
+
+        static const bool GetKeyDown(const Events::KeyCode &key)
+        {
+            return GetKeyTouched(key) || GetKeyPressed(key);
+        }
 
         // MOUSE FUNCTIONS
 
-        static MouseButtonState GetMouseButton(const MouseButton &button);
+        static const bool GetMouseTouched(const Events::MouseButton &key)
+        {
+            return Events::Handler::GetMouseState(key) == Events::MouseState::Clicked;
+        }
 
-        static void MouseButtonCallback(const MouseButton &button, const MouseButtonState &buttonState); // Callback
+        static const bool GetMouseReleased(const Events::MouseButton &key)
+        {
+            return Events::Handler::GetMouseState(key) == Events::MouseState::Released;
+        }
 
         // CURSOR FUNCTIONS
 
-        static double GetMouseX();
+        static const glm::vec2 GetCursorPosition()
+        {
+            return Events::Handler::GetCursorPosition();
+        }
 
-        static double GetMouseY();
+        static const double GetMouseX()
+        {
+            return GetCursorPosition().x;
+        }
 
-        static const glm::vec2 &GetMousePosition();
-
-        static void MousePosCallback(double mouseX, double mouseY); // Callback
+        static const double GetMouseY()
+        {
+            return GetCursorPosition().y;
+        }
     };
 }

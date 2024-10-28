@@ -1,93 +1,44 @@
 #pragma once
 
-#include "Event.h"
+#include <GLFW/glfw3.h>
 
 namespace Crayon
 {
-    // MOUSE BUTTON EVENT CLASS
-    enum class MouseButton
+    namespace Events
     {
-        Null, Left, Middle, Right
-    };
-
-    enum class MouseButtonState
-    {
-        Null, Pressed, Released
-    };
-
-    class MouseButtonEvent : public Event
-    {
-    private:
-        MouseButton m_Button;
-        MouseButtonState m_ButtonState;
-
-    public:
-        MouseButtonEvent(MouseButton button, MouseButtonState state) : m_Button(button),
-                                                                       m_ButtonState(state) { m_IsNull = false; }
-
-        MouseButton GetButton() const { return m_Button; }
-
-        MouseButtonState GetButtonState() const { return m_ButtonState; }
-
-        // Override
-        std::string GetName() const override
+        enum class MouseButton
         {
-            std::string name = "Mouse Button Event: ";
+            LEFT_BUTTON = GLFW_MOUSE_BUTTON_LEFT,
+            MIDDLE_BUTTON = GLFW_MOUSE_BUTTON_MIDDLE,
+            RIGHT_BUTTON = GLFW_MOUSE_BUTTON_RIGHT,
+        };
 
-            name.append("Button: ");
-            switch (m_Button)
+        enum class MouseState
+        {
+            Null,
+            Clicked,
+            Released,
+        };
+
+        struct MouseEvent
+        {
+        private:
+            const MouseButton m_Button;
+            const MouseState m_State;
+
+        public:
+            MouseEvent(MouseButton button, MouseState state)
+                : m_Button(button), m_State(state) {}
+
+            const MouseButton GetButton() const
             {
-                case MouseButton::Left:
-                    name.append("Left");
-                    break;
-                case MouseButton::Middle:
-                    name.append("Middle");
-                    break;
-                case MouseButton::Right:
-                    name.append("Right");
-                    break;
-                case MouseButton::Null:
-                    break;
+                return m_Button;
             }
 
-            name.append("State: ");
-            switch (m_ButtonState)
+            const MouseState GetState() const
             {
-                case MouseButtonState::Pressed:
-                    name.append("Pressed");
-                    break;
-                case MouseButtonState::Released:
-                    name.append("Released");
-                    break;
-                case MouseButtonState::Null:
-                    break;
+                return m_State;
             }
-
-            return name;
-        }
-    };
-
-    // MOUSE MOVED EVENT CLASS
-    class MouseMovedEvent : public Event
-    {
-    private:
-        double m_MouseX, m_MouseY;
-
-    public:
-        MouseMovedEvent(double x, double y) : m_MouseX(x), m_MouseY(y) { m_IsNull = false; }
-
-        double GetX() const { return m_MouseX; }
-
-        double GetY() const { return m_MouseY; }
-
-        // Override
-        std::string GetName() const override
-        {
-            std::string name = "Mouse Moved Event - ";
-            name.append("X: ").append(std::to_string(m_MouseX))
-                    .append("Y: ").append(std::to_string(m_MouseY));
-
-            return name;
-        }
-    };
+        };
+    }
 }

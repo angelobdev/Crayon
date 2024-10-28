@@ -17,71 +17,16 @@ namespace Crayon
 
     void Application::Initialize()
     {
-        CRAYON_CORE_INFO("Welcome to Crayon Engine!");
+        CRAYON_CORE_TRACE("Initializing Event Handler...");
+        Crayon::Events::Handler::Initialize(*p_Window.get());
+
+        CRAYON_CORE_TRACE("Initializing ImGui Controller...");
         Crayon::ImGuiController::Initialize(p_Window.get());
+
+        CRAYON_CORE_INFO("Application has been initialized successfully!");
     }
 
-    void Application::HandleEvents()
-    {
-        Event *lastEvent = EventDispatcher::Retrieve();
-        if (lastEvent != nullptr)
-        {
-            OnEvent(lastEvent);
-        }
-        delete lastEvent;
-    }
-
-    void Application::OnEvent(Event *event)
-    {
-        // ----- HANDLING CALLBACKS -----
-
-        // Keyboard
-        if (auto *keyEvent = dynamic_cast<KeyEvent *>(event))
-        {
-            Input::KeyCallback(keyEvent->GetKey(), keyEvent->GetKeyState());
-        }
-
-        // Mouse Button
-        if (auto *mbEvent = dynamic_cast<MouseButtonEvent *>(event))
-        {
-            Input::MouseButtonCallback(mbEvent->GetButton(), mbEvent->GetButtonState());
-        }
-
-        // Mouse Movement
-        if (auto *mmEvent = dynamic_cast<MouseMovedEvent *>(event))
-        {
-            Input::MousePosCallback(mmEvent->GetX(), mmEvent->GetY());
-        }
-
-        // Window Events
-        if (auto *wdEvent = dynamic_cast<WindowEvent *>(event))
-        {
-            switch (wdEvent->GetWindowState())
-            {
-            case WindowState::Closed:
-                this->OnWindowClosed();
-                break;
-
-            case WindowState::Resized:
-                this->OnWindowResized(p_Window->GetWidth(), p_Window->GetHeight());
-                break;
-
-            case WindowState::Minimized:
-                this->OnWindowMinimized();
-                break;
-
-            case WindowState::Focused:
-                this->OnWindowGainFocus();
-                break;
-
-            case WindowState::Unfocused:
-                this->OnWindowLostFocus();
-                break;
-            }
-        }
-    }
-
-    // RUN METHODS
+    // RUN METHOD
 
     void Application::Run()
     {
@@ -94,7 +39,6 @@ namespace Crayon
 
             // Handling Events
             p_Window->PollEvents();
-            this->HandleEvents();
 
             // Update
             this->Update(deltaTime);
@@ -115,10 +59,6 @@ namespace Crayon
 
         // Terminating ImGui
         ImGuiController::Terminate();
-
-        // Dispatching remaining events (Not sure if this is needed anymore)
-        while (EventDispatcher::GetQueueSize() > 0)
-            this->HandleEvents();
 
         p_Window->Close();
         CRAYON_CORE_INFO("Bye! <3");

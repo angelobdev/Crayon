@@ -47,7 +47,7 @@ namespace Crayon
         void Update(const float deltaTime)
         {
             // Handling Mouse
-            auto newMousePos = Crayon::Input::GetMousePosition();
+            auto newMousePos = Crayon::Input::GetCursorPosition();
             auto mouseOffset = (newMousePos - this->m_LastMousePos) * (deltaTime * this->m_Sensitivity);
 
             // Yaw
@@ -72,17 +72,17 @@ namespace Crayon
             this->m_LastMousePos = newMousePos;
 
             // Handling Keyboard
-            if (Crayon::Input::GetKeyDown(GLFW_KEY_W))
+            if (Crayon::Input::GetKeyDown(Crayon::Events::KeyCode::W))
                 m_Position += m_Front * deltaTime;
-            if (Crayon::Input::GetKeyDown(GLFW_KEY_S))
+            if (Crayon::Input::GetKeyDown(Crayon::Events::KeyCode::S))
                 m_Position -= m_Front * deltaTime;
-            if (Crayon::Input::GetKeyDown(GLFW_KEY_D))
+            if (Crayon::Input::GetKeyDown(Crayon::Events::KeyCode::D))
                 m_Position += m_Right * deltaTime;
-            if (Crayon::Input::GetKeyDown(GLFW_KEY_A))
+            if (Crayon::Input::GetKeyDown(Crayon::Events::KeyCode::A))
                 m_Position -= m_Right * deltaTime;
-            if (Crayon::Input::GetKeyDown(GLFW_KEY_LEFT_SHIFT))
+            if (Crayon::Input::GetKeyDown(Crayon::Events::KeyCode::LSHIFT))
                 m_Position += Directions::DOWN * deltaTime;
-            if (Crayon::Input::GetKeyDown(GLFW_KEY_SPACE))
+            if (Crayon::Input::GetKeyDown(Crayon::Events::KeyCode::SPACE))
                 m_Position += Directions::UP * deltaTime;
 
             // Updating matrix

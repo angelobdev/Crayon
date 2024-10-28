@@ -1,29 +1,31 @@
 #pragma once
 
-#include "Event.h"
-
 namespace Crayon
 {
-    enum WindowState
+    namespace Events
     {
-        Closed, Resized, Minimized, Focused, Unfocused
-    };
+        enum WindowState
+        {
+            Closed,
+            Resized,
+            Minimized,
+            Focused,
+            Unfocused
+        };
 
-    class WindowEvent : public Event
-    {
-    private:
-        WindowState m_WindowState;
+        struct WindowEvent
+        {
+        private:
+            const WindowState m_State;
 
-    public:
-        explicit WindowEvent(WindowState state) : m_WindowState(state)
-        { m_IsNull = false; }
+        public:
+            WindowEvent(WindowState state)
+                : m_State(state) {}
 
-         WindowState GetWindowState() const
-        { return m_WindowState; }
-
-        // Override
-         std::string GetName() const override
-        { return &"Window Event - STATE: "[m_WindowState]; }
-    };
-
+            const WindowState GetState() const
+            {
+                return m_State;
+            }
+        };
+    }
 }

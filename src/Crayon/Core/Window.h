@@ -6,11 +6,6 @@
 
 #include "Logger.h"
 
-#include "Crayon/Events/Event.h"
-#include "Crayon/Events/KeyEvent.h"
-#include "Crayon/Events/MouseEvent.h"
-#include "Crayon/Events/WindowEvent.h"
-
 namespace Crayon
 {
     class Window
@@ -61,7 +56,7 @@ namespace Crayon
             return height;
         }
 
-        GLFWwindow *GetPointer() { return p_Window; }
+        GLFWwindow *GetPointer() const { return p_Window; }
 
         float GetAspectRatio()
         {

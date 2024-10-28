@@ -14,19 +14,19 @@ namespace Crayon
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
 
-        ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-        ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-        ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
-        ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
-        //ImGui::GetIO().ConfigViewportsNoAutoMerge = true;
-        //ImGui::GetIO().ConfigViewportsNoTaskBarIcon = true;
+        ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
+        ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;  // Enable Gamepad Controls
+        ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;     // Enable Docking
+        ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;   // Enable Multi-Viewport / Platform Windows
+        // ImGui::GetIO().ConfigViewportsNoAutoMerge = true;
+        // ImGui::GetIO().ConfigViewportsNoTaskBarIcon = true;
 
         s_IO = ImGui::GetIO();
-        (void) s_IO;
+        (void)s_IO;
 
         // Setup Dear ImGui style
         ImGui::StyleColorsDark();
-        //ImGui::StyleColorsLight();
+        // ImGui::StyleColorsLight();
 
         // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
         ImGuiStyle &style = ImGui::GetStyle();
@@ -49,13 +49,13 @@ namespace Crayon
         // - Read 'docs/FONTS.md' for more instructions and details.
         // - Remember that in C/C++ if you want to include a backslash \ in a string literal you need to write a double backslash \\ !
         // - Our Emscripten build process allows embedding fonts to be accessible at runtime from the "fonts/" folder. See Makefile.emscripten for details.
-        //s_IO.Fonts->AddFontDefault();
-        //s_IO.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf", 18.0f);
-        //s_IO.Fonts->AddFontFromFileTTF("../../misc/fonts/DroidSans.ttf", 16.0f);
-        //s_IO.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
-        //s_IO.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
-        //ImFont* font = s_IO.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, s_IO.Fonts->GetGlyphRangesJapanese());
-        //IM_ASSERT(font != NULL);
+        // s_IO.Fonts->AddFontDefault();
+        // s_IO.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf", 18.0f);
+        // s_IO.Fonts->AddFontFromFileTTF("../../misc/fonts/DroidSans.ttf", 16.0f);
+        // s_IO.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
+        // s_IO.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
+        // ImFont* font = s_IO.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, s_IO.Fonts->GetGlyphRangesJapanese());
+        // IM_ASSERT(font != NULL);
     }
 
     void ImGuiController::NewFrame()
@@ -70,12 +70,12 @@ namespace Crayon
         // Rendering
         ImGui::Render();
 
-//        int display_w = s_Window->GetWidth();
-//        int display_h = s_Window->GetHeight();
+        //        int display_w = s_Window->GetWidth();
+        //        int display_h = s_Window->GetHeight();
 
-//        CRAYON_CORE_TRACE("W: {}, H: {}", display_w, display_h);
-//        glViewport(0, 0, display_w, display_h);
-//        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        //        CRAYON_CORE_TRACE("W: {}, H: {}", display_w, display_h);
+        //        glViewport(0, 0, display_w, display_h);
+        //        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

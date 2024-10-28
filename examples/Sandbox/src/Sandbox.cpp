@@ -45,7 +45,7 @@ public:
 
     void Update(double deltaTime) override
     {
-        if (Crayon::Input::GetKey(GLFW_KEY_ESCAPE) == Crayon::KeyState::Touched)
+        if (Crayon::Input::GetKeyTouched(Crayon::Events::KeyCode::ESCAPE))
         {
             p_Window->ToggleCursor();
         }

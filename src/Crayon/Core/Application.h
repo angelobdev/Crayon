@@ -46,10 +46,6 @@ namespace Crayon
 
     private:
         void Initialize();
-
-        void HandleEvents();
-
-        void OnEvent(Event *event);
     };
 
     Application *CreateApplication(); // To be defined in client
