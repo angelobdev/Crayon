@@ -11,8 +11,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#define INT_TO_VOID_PTR(i) (const void *)(uintptr_t)(i)
-
 /* ***** ERROR CATCHING FOR OPENGL FUNCTIONS ***** */
 
 #define ASSERT(func) \
@@ -51,10 +49,16 @@ static bool GLErrorLog(const char *function, const char *file, const int &line)
         case GL_OUT_OF_MEMORY:
             error_name = "GL_OUT_OF_MEMORY";
             break;
+        case GL_INVALID_FRAMEBUFFER_OPERATION:
+            error_name = "GL_INVALID_FRAMEBUFFER_OPERATION";
+            break;
+        default:
+            error_name = "UNKNOWN_ERROR";
+            break;
         }
 
-        spdlog::error("OpenGL Error!\n\tType: {}\n\tGenerated from function {}\n\tAt {}:{}", error_name, function, file,
-                      line);
+        CRAYON_CORE_ERROR("OpenGL Error!\n\tType: {}\n\tGenerated from function {}\n\tAt {}:{}", error_name, function, file,
+                          line);
         return false;
     }
     return true;

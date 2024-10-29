@@ -35,6 +35,7 @@ namespace Crayon::Graphics
             this->m_LastMousePos = Crayon::Core::Input::GetCursorPosition();
         }
 
+        // TODO: Remove from here
         void Update(const float deltaTime)
         {
             // Handling Mouse
@@ -54,9 +55,9 @@ namespace Crayon::Graphics
             // Rotating
 
             glm::vec3 direction;
-            direction.x = cos(glm::radians(m_Rotation.y)) * cos(glm::radians(m_Rotation.x));
+            direction.x = sin(glm::radians(m_Rotation.y)) * cos(glm::radians(m_Rotation.x));
             direction.y = sin(glm::radians(m_Rotation.x));
-            direction.z = sin(glm::radians(m_Rotation.y)) * cos(glm::radians(m_Rotation.x));
+            direction.z = -cos(glm::radians(m_Rotation.y)) * cos(glm::radians(m_Rotation.x));
             m_Front = glm::normalize(direction);
             m_Right = glm::cross(m_Front, m_Up);
 

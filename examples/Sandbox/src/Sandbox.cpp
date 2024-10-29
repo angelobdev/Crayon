@@ -7,7 +7,7 @@ using namespace Crayon::Events;
 class Sandbox : public Application
 {
 private:
-#include <vector>
+    // DATA
 
     std::vector<float> vertices = {
         // Front face
@@ -66,11 +66,16 @@ private:
         {3, GL_FLOAT}  // normal
     };
 
-    std::unique_ptr<Camera> camera;
+    // OBJECTS
 
-    std::unique_ptr<Mesh<float>> mesh;
+    std::unique_ptr<Camera> camera; // Camera
+
+    std::unique_ptr<Mesh<float>> mesh; // GameObject
     glm::vec3 objectPosition = glm::vec3(0.0f, 0.0f, -10.0f);
-    std::unique_ptr<Core::Shader> shader;
+
+    std::unique_ptr<Core::Shader> shader; // Shader
+    std::unique_ptr<Light> light;         // Light
+    std::unique_ptr<Material> material;   // Material
 
 public:
     Sandbox() : Application("Sandbox", 800, 600)
@@ -78,10 +83,11 @@ public:
         GLCall(glEnable(GL_DEPTH_TEST));
         GLCall(glClearColor(0.2f, 0.4f, 0.6f, 1.0f));
 
+        camera = std::make_unique<Camera>(glm::vec3(4, 4, 3), glm::vec3(-25, 230, 0), *p_Window.get());
         mesh = std::make_unique<Mesh<float>>(vertices, layout, indices);
         shader = std::make_unique<Core::Shader>("assets/shaders/basic.glsl", true);
-
-        camera = std::make_unique<Camera>(glm::vec3(4, 4, 3), glm::vec3(-25, 230, 0), *p_Window.get());
+        light = std::make_unique<Light>();
+        material = std::make_unique<Material>(glm::vec3(0.8f, 0.3f, 0.2f));
     }
 
     void Update(double deltaTime) override
@@ -106,6 +112,14 @@ public:
         shader->SetUniformMatrix4f("u_Model", glm::translate(glm::mat4(1.0f), objectPosition));
         shader->SetUniformMatrix4f("u_View", camera->GetView());
         shader->SetUniformMatrix4f("u_Projection", camera->GetProjection());
+
+        shader->SetUniform3f("u_LightPosition", light->GetPosition());
+        shader->SetUniform3f("u_LightColor", light->GetColor());
+
+        shader->SetUniform3f("u_BaseColor", material->GetColor());
+        shader->SetUniform1f("u_Ambient", material->GetAmbient());
+        shader->SetUniform1f("u_Diffuse", material->GetDiffuse());
+        shader->SetUniform1f("u_Specular", material->GetSpecular());
 
         mesh->GetVAO().Bind();
         mesh->GetIBO().Bind();

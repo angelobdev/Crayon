@@ -38,6 +38,7 @@ add_library(Crayon STATIC
         src/Crayon/Graphics/Directions.cpp
         src/Crayon/Graphics/Directions.h
         src/Crayon/Graphics/GameObject.h
+        src/Crayon/Graphics/Light.h
         src/Crayon/Graphics/Material.h
         src/Crayon/Graphics/Mesh.h
         src/Crayon/Graphics/Renderer.h
