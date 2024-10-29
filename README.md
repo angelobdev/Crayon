@@ -6,16 +6,15 @@ This project is more of a challenge to myself.
 
 I'm a computer engineering student and I love computer graphics, so I thought I would try to build my own engine using C++ and OpenGL.
 
-This project aims to be fully-functional and easy-to-use, if it'll grow enough I'll make a documentation... at the moment you can just look at code and figure out yourself how it works.
+This project aims to be fully-functional and easy-to-use, if it'll grow enough I'll make a documentation... at the moment you can just look at examples code and figure out yourself how it works.
 
-Hope you enjoy!
+Hope you enjoy ❤️
 
 ---
 
 ## Getting started 🚀
 
-The project has been developed on both Windows and macOS (using CLion).  
-If you want to run it you can use CMake.
+The project has been developed on and macOS (using VSCode), it should support Windows and Linux as well even tho neither of them has been tested yet.
 
 ### How to clone the project
 
@@ -30,7 +29,7 @@ THE PROJECT IS STILL UNDER DEVELOPMENT AND POSSIBLY FULL OF BUGS!
 
 ## Libraries 🔗
 
-[glfw](https://github.com/glfw/glfw) - [glad](https://glad.dav1d.de/) - [spdlog](https://github.com/gabime/spdlog) - [glm](https://github.com/g-truc/glm) - [imgui](https://github.com/ocornut/imgui) - [debugbreak](https://github.com/scottt/debugbreak) - [stb_image](https://github.com/nothings/stb)
+[glfw](https://github.com/glfw/glfw) - [glad](https://glad.dav1d.de/) - [spdlog](https://github.com/gabime/spdlog) - [glm](https://github.com/g-truc/glm) - [imgui](https://github.com/ocornut/imgui) - [debugbreak](https://github.com/scottt/debugbreak) - [stb_image](https://github.com/nothings/stb) - [assimp](https://github.com/assimp/assimp)
 
 ---
 
