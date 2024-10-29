@@ -1,12 +1,11 @@
 #pragma once
 
-#include "Core/OpenGL.h"
-#include "Crayon/Utils/ResourceLoader.h"
+#include "OpenGL.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-namespace Crayon::Graphics
+namespace Crayon::Graphics::Core
 {
     class Texture
     {
@@ -52,8 +51,6 @@ namespace Crayon::Graphics
             {
                 CRAYON_CORE_ERROR("Failed to load texture: {}", stbi_failure_reason());
             }
-
-            GLCall(glBindTexture(GL_TEXTURE_2D, 0));
         }
 
         ~Texture()

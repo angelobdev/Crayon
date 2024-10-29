@@ -30,7 +30,9 @@ add_library(Crayon STATIC
         src/Crayon/Graphics/Core/OpenGL.h
         src/Crayon/Graphics/Core/VertexArray.h
         src/Crayon/Graphics/Core/VertexBuffer.h        
+        src/Crayon/Graphics/Core/VertexLayout.h        
         src/Crayon/Graphics/Core/IndexBuffer.h
+        src/Crayon/Graphics/Core/Texture.h
 
         src/Crayon/Graphics/Camera.h
         src/Crayon/Graphics/Directions.cpp
@@ -41,7 +43,7 @@ add_library(Crayon STATIC
         src/Crayon/Graphics/Mesh.h
         src/Crayon/Graphics/Renderer.h
         src/Crayon/Graphics/Shader.h
-        src/Crayon/Graphics/Texture.h
+        src/Crayon/Graphics/Vertex.h
 
         src/Crayon/Graphics/GUI/imgui_impl_glfw.cpp
         src/Crayon/Graphics/GUI/imgui_impl_glfw.h
@@ -95,6 +97,12 @@ target_include_directories(Crayon PUBLIC "${GLM_DIR}")
 # stb_image
 set(STB_IMAGE_DIR "${CRAYON_VENDOR_DIR}/stb_image")
 target_include_directories(Crayon PUBLIC "${STB_IMAGE_DIR}/include")
+
+# assimp
+set(ASSIMP_DIR "${CRAYON_VENDOR_DIR}/assimp")
+add_subdirectory("${ASSIMP_DIR}")
+target_include_directories(Crayon PUBLIC "${ASSIMP_DIR}/include")
+target_link_libraries(Crayon PRIVATE "assimp")
 
 # ----- Examples -----
 option(CRAYON_BUILD_EXAMPLES "Crayon Build Examples" ON) # TODO test

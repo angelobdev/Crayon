@@ -1,23 +1,10 @@
 #pragma once
 
 #include "OpenGL.h"
+#include "VertexLayout.h"
 
 namespace Crayon::Graphics::Core
 {
-
-    struct VertexLayout
-    {
-        unsigned int count;
-        unsigned int type;
-        bool normalized = false;
-
-        VertexLayout(unsigned int count, unsigned int type, bool normalized)
-            : count(count), type(type), normalized(normalized) {}
-
-        VertexLayout(unsigned int count, unsigned int type)
-            : count(count), type(type), normalized(false) {}
-    };
-
     template <typename T>
     class VertexBuffer
     {
@@ -36,23 +23,21 @@ namespace Crayon::Graphics::Core
             GLCall(glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(T), &vertices[0], GL_STATIC_DRAW));
 
             // Calculating stride
-            unsigned int offset = 0;
             unsigned int stride = 0;
             for (const auto &layout : verticesLayout)
             {
-                stride += layout.count * sizeof(T);
+                stride += layout.count * GetSizeFromType(layout.type);
             }
 
             // Linking buffer to currently bound VAO
+            unsigned int offset = 0;
             for (unsigned int i = 0; i < verticesLayout.size(); i++)
             {
                 const auto &layout = verticesLayout[i];
                 GLCall(glEnableVertexAttribArray(i));
                 GLCall(glVertexAttribPointer(i, layout.count, layout.type, layout.normalized ? GL_TRUE : GL_FALSE, stride, reinterpret_cast<void *>(offset)));
-                offset += layout.count * sizeof(T);
+                offset += layout.count * GetSizeFromType(layout.type);
             }
-
-            GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
         }
 
         ~VertexBuffer()
@@ -75,5 +60,32 @@ namespace Crayon::Graphics::Core
         // GETTERS AND SETTERS
 
         const unsigned int GetID() const { return this->m_ID; }
+
+    private:
+        static int GetSizeFromType(GLenum type)
+        {
+            switch (type)
+            {
+            case GL_FLOAT:
+                return sizeof(float);
+            case GL_INT:
+                return sizeof(int);
+            case GL_UNSIGNED_INT:
+                return sizeof(unsigned int);
+            case GL_DOUBLE:
+                return sizeof(double);
+            case GL_BYTE:
+                return sizeof(char);
+            case GL_UNSIGNED_BYTE:
+                return sizeof(unsigned char);
+            case GL_SHORT:
+                return sizeof(short);
+            case GL_UNSIGNED_SHORT:
+                return sizeof(unsigned short);
+            default:
+                CRAYON_CORE_FATAL("Unidentified GLenum code: {}", type);
+                return -1;
+            }
+        }
     };
 }

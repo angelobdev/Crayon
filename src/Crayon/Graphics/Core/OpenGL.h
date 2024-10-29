@@ -6,6 +6,8 @@
 #include "Crayon/Core/Input.h"
 #include "Crayon/Core/Logger.h"
 
+#include "Crayon/Utils/ResourceLoader.h"
+
 #include <debugbreak.h>
 #include <glad/glad.h>
 #include <glm/glm.hpp>

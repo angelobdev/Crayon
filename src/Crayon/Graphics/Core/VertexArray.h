@@ -15,6 +15,7 @@ namespace Crayon::Graphics::Core
         VertexArray()
         {
             GLCall(glGenVertexArrays(1, &this->m_ID));
+            GLCall(glBindVertexArray(this->m_ID));
         }
 
         ~VertexArray()

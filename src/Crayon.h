@@ -18,7 +18,6 @@
 #include "Crayon/Graphics/Mesh.h"
 #include "Crayon/Graphics/Renderer.h"
 #include "Crayon/Graphics/Shader.h"
-#include "Crayon/Graphics/Texture.h"
 
 // UTILITIES
 #include "Crayon/Utils/ResourceLoader.h"

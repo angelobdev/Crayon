@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Core/OpenGL.h"
-#include "Crayon/Utils/ResourceLoader.h"
 
 namespace Crayon::Graphics
 {
@@ -14,8 +13,14 @@ namespace Crayon::Graphics
     public:
         // CONSTRUCTOR & DESTRUCTOR
 
-        Shader(std::vector<std::string> &shaderPaths)
+        Shader(std::vector<std::string> shaderPaths)
         {
+            CRAYON_CORE_TRACE("Generating shader from:");
+            for (const auto &path : shaderPaths)
+            {
+                CRAYON_CORE_TRACE("\t{}", path);
+            }
+
             this->m_Program = Shader::CompileProgram(shaderPaths);
             this->m_UniformCache = std::map<std::string, int>();
         }

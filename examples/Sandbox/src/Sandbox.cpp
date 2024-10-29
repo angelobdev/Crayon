@@ -9,42 +9,42 @@ class Sandbox : public Application
 private:
     // DATA
 
-    std::vector<float> vertices = {
+    std::vector<Vertex> vertices = {
         // Front face
-        -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // Bottom-left,  normal (0, 0, 1), texCoords (0, 0)
-        1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,  // Bottom-right, normal (0, 0, 1), texCoords (1, 0)
-        1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,   // Top-right,    normal (0, 0, 1), texCoords (1, 1)
-        -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,  // Top-left,     normal (0, 0, 1), texCoords (0, 1)
+        Vertex(glm::vec3(-1.0f, -1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)), // Bottom-left
+        Vertex(glm::vec3(1.0f, -1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)),  // Bottom-right
+        Vertex(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f)),   // Top-right
+        Vertex(glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f)),  // Top-left
 
         // Back face
-        -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, // Bottom-left,  normal (0, 0, -1), texCoords (0, 0)
-        1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,  // Bottom-right, normal (0, 0, -1), texCoords (1, 0)
-        1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,   // Top-right,    normal (0, 0, -1), texCoords (1, 1)
-        -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,  // Top-left,     normal (0, 0, -1), texCoords (0, 1)
+        Vertex(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec2(0.0f, 0.0f)), // Bottom-left
+        Vertex(glm::vec3(1.0f, -1.0f, -1.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec2(1.0f, 0.0f)),  // Bottom-right
+        Vertex(glm::vec3(1.0f, 1.0f, -1.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec2(1.0f, 1.0f)),   // Top-right
+        Vertex(glm::vec3(-1.0f, 1.0f, -1.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec2(0.0f, 1.0f)),  // Top-left
 
         // Left face
-        -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left,  normal (-1, 0, 0), texCoords (0, 0)
-        -1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,  // Top-left,     normal (-1, 0, 0), texCoords (1, 0)
-        -1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // Top-right,    normal (-1, 0, 0), texCoords (1, 1)
-        -1.0f, -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,  // Bottom-right, normal (-1, 0, 0), texCoords (0, 1)
+        Vertex(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.0f)), // Bottom-left
+        Vertex(glm::vec3(-1.0f, 1.0f, -1.0f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 0.0f)),  // Top-left
+        Vertex(glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 1.0f)),   // Top-right
+        Vertex(glm::vec3(-1.0f, -1.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 1.0f)),  // Bottom-right
 
         // Right face
-        1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left,  normal (1, 0, 0), texCoords (0, 0)
-        1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,  // Top-left,     normal (1, 0, 0), texCoords (1, 0)
-        1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // Top-right,    normal (1, 0, 0), texCoords (1, 1)
-        1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,  // Bottom-right, normal (1, 0, 0), texCoords (0, 1)
+        Vertex(glm::vec3(1.0f, -1.0f, -1.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.0f)), // Bottom-left
+        Vertex(glm::vec3(1.0f, 1.0f, -1.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 0.0f)),  // Top-left
+        Vertex(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 1.0f)),   // Top-right
+        Vertex(glm::vec3(1.0f, -1.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 1.0f)),  // Bottom-right
 
         // Top face
-        -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, // Bottom-left,  normal (0, 1, 0), texCoords (0, 0)
-        1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,  // Bottom-right, normal (0, 1, 0), texCoords (1, 0)
-        1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,   // Top-right,    normal (0, 1, 0), texCoords (1, 1)
-        -1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,  // Top-left,     normal (0, 1, 0), texCoords (0, 1)
+        Vertex(glm::vec3(-1.0f, 1.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(0.0f, 0.0f)), // Bottom-left
+        Vertex(glm::vec3(1.0f, 1.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(1.0f, 0.0f)),  // Bottom-right
+        Vertex(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(1.0f, 1.0f)),   // Top-right
+        Vertex(glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(0.0f, 1.0f)),  // Top-left
 
         // Bottom face
-        -1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f, // Bottom-left,  normal (0, -1, 0), texCoords (0, 0)
-        1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,  // Bottom-right, normal (0, -1, 0), texCoords (1, 0)
-        1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,   // Top-right,    normal (0, -1, 0), texCoords (1, 1)
-        -1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f   // Top-left,     normal (0, -1, 0), texCoords (0, 1)
+        Vertex(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec2(0.0f, 0.0f)), // Bottom-left
+        Vertex(glm::vec3(1.0f, -1.0f, -1.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec2(1.0f, 0.0f)),  // Bottom-right
+        Vertex(glm::vec3(1.0f, -1.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec2(1.0f, 1.0f)),   // Top-right
+        Vertex(glm::vec3(-1.0f, -1.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec2(0.0f, 1.0f))   // Top-left
     };
 
     std::vector<unsigned int> indices = {
@@ -61,40 +61,31 @@ private:
         // Bottom face
         20, 21, 22, 22, 23, 20};
 
-    std::vector<Core::VertexLayout> layout = {
-        {3, GL_FLOAT}, // position
-        {3, GL_FLOAT}, // normal
-        {2, GL_FLOAT}, // texture coords
-    };
-
     // OBJECTS
-    std::unique_ptr<Camera> camera; // Camera
 
-    std::unique_ptr<Mesh<float>> mesh; // GameObject
-    glm::vec3 objectPosition = glm::vec3(0.0f, 0.0f, -10.0f);
+    Camera camera; // Camera
+    Light light;   // Light
 
-    std::unique_ptr<Shader> shader; // Shader
-    std::vector<std::string> shaderPaths = {
-        "assets/shaders/basic.vert",
-        "assets/shaders/basic.frag",
-    };
+    Mesh mesh; // GameObject
+    Material material;
+    glm::vec3 objectPosition;
 
-    std::unique_ptr<Light> light;       // Light
-    std::unique_ptr<Material> material; // Material
-    std::unique_ptr<Texture> texture;   // Texture
+    Shader shader; // Shader
 
 public:
-    Sandbox() : Application("Sandbox", 800, 600)
+    Sandbox() : Application("Sandbox", 800, 600),
+                camera(glm::vec3(4, 4, 3), glm::vec3(-25, 230, 0), *p_Window.get()),
+                light(),
+                mesh(vertices, indices, "assets/textures/test.png"),
+                material(glm::vec3(0.8f, 0.3f, 0.2f)),
+                objectPosition(glm::vec3(0, 0, -10.0f)),
+                shader({
+                    "assets/shaders/basic.vert",
+                    "assets/shaders/basic.frag",
+                })
     {
         GLCall(glEnable(GL_DEPTH_TEST));
         GLCall(glClearColor(0.2f, 0.4f, 0.6f, 1.0f));
-
-        camera = std::make_unique<Camera>(glm::vec3(4, 4, 3), glm::vec3(-25, 230, 0), *p_Window.get());
-        mesh = std::make_unique<Mesh<float>>(vertices, layout, indices);
-        shader = std::make_unique<Shader>(shaderPaths);
-        light = std::make_unique<Light>();
-        material = std::make_unique<Material>(glm::vec3(0.8f, 0.3f, 0.2f));
-        texture = std::make_unique<Texture>("assets/textures/test.png");
     }
 
     void Update(double deltaTime) override
@@ -106,7 +97,7 @@ public:
 
         if (p_Window->IsCursorDisabled())
         {
-            camera->Update(static_cast<float>(deltaTime));
+            camera.Update(static_cast<float>(deltaTime));
         }
     }
 
@@ -114,41 +105,39 @@ public:
     {
         GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
-        shader->Bind();
+        shader.Bind();
 
         // Object
-        shader->SetUniformMatrix4f("u_Model", glm::translate(glm::mat4(1.0f), objectPosition));
+        shader.SetUniformMatrix4f("u_Model", glm::translate(glm::mat4(1.0f), objectPosition));
 
         // Camera
-        shader->SetUniformMatrix4f("u_View", camera->GetView());
-        shader->SetUniformMatrix4f("u_Projection", camera->GetProjection());
+        shader.SetUniformMatrix4f("u_View", camera.GetView());
+        shader.SetUniformMatrix4f("u_Projection", camera.GetProjection());
 
         // Light
-        shader->SetUniform3f("u_LightPosition", light->GetPosition());
-        shader->SetUniform3f("u_LightColor", light->GetColor());
+        shader.SetUniform3f("u_LightPosition", light.GetPosition());
+        shader.SetUniform3f("u_LightColor", light.GetColor());
 
         // Material
-        shader->SetUniform3f("u_BaseColor", material->GetColor());
-        shader->SetUniform3f("u_Ambient", material->GetAmbient());
-        shader->SetUniform3f("u_Diffuse", material->GetDiffuse());
-        shader->SetUniform3f("u_Specular", material->GetSpecular());
-        shader->SetUniform1f("u_Shininess", material->GetShininess());
-
-        // Texture
-        // texture->Bind();
+        shader.SetUniform3f("u_BaseColor", material.GetColor());
+        shader.SetUniform3f("u_Ambient", material.GetAmbient());
+        shader.SetUniform3f("u_Diffuse", material.GetDiffuse());
+        shader.SetUniform3f("u_Specular", material.GetSpecular());
+        shader.SetUniform1f("u_Shininess", material.GetShininess());
 
         // Mesh
-        mesh->GetVAO().Bind();
-        mesh->GetIBO().Bind();
+        mesh.GetVAO().Bind();
+        mesh.GetIBO().Bind();
+        mesh.GetTexture().Bind();
 
         // Render
-        GLCall(glDrawElements(GL_TRIANGLES, mesh->GetIBO().GetCount(), GL_UNSIGNED_INT, nullptr));
+        GLCall(glDrawElements(GL_TRIANGLES, mesh.GetIBO().GetCount(), GL_UNSIGNED_INT, nullptr));
 
-        mesh->GetIBO().Unbind();
-        mesh->GetVAO().Unbind();
+        mesh.GetTexture().Unbind();
+        mesh.GetIBO().Unbind();
+        mesh.GetVAO().Unbind();
 
-        // texture->Unbind();
-        shader->Unbind();
+        shader.Unbind();
     }
 
     void RenderUI() override
@@ -160,11 +149,11 @@ public:
         ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Object");
         ImGui::SliderFloat3("Obj Position", &objectPosition.x, -10.0f, 10.0f);
         ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Camera");
-        ImGui::Text("Cam Position: (%.2f, %.2f, %.2f)", camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
-        ImGui::Text("Pitch: %.2f | Yaw: %.2f | Roll: %.2f)", camera->GetRotation().x, camera->GetRotation().y, camera->GetRotation().z);
+        ImGui::Text("Cam Position: (%.2f, %.2f, %.2f)", camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
+        ImGui::Text("Pitch: %.2f | Yaw: %.2f | Roll: %.2f)", camera.GetRotation().x, camera.GetRotation().y, camera.GetRotation().z);
         ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Light");
-        ImGui::SliderFloat3("Light Position", &light->Position().x, -100.0f, 100.0f);
-        ImGui::SliderFloat3("Light Color", &light->Color().x, 0.0f, 1.0f);
+        ImGui::SliderFloat3("Light Position", &light.Position().x, -100.0f, 100.0f);
+        ImGui::SliderFloat3("Light Color", &light.Color().x, 0.0f, 1.0f);
         ImGui::End();
     }
 
