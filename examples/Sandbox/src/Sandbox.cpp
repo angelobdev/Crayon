@@ -11,40 +11,40 @@ private:
 
     std::vector<float> vertices = {
         // Front face
-        -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, // Bottom-left,  normal (0, 0, 1)
-        1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,  // Bottom-right, normal (0, 0, 1)
-        1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,   // Top-right,    normal (0, 0, 1)
-        -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,  // Top-left,     normal (0, 0, 1)
+        -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // Bottom-left,  normal (0, 0, 1), texCoords (0, 0)
+        1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,  // Bottom-right, normal (0, 0, 1), texCoords (1, 0)
+        1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,   // Top-right,    normal (0, 0, 1), texCoords (1, 1)
+        -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,  // Top-left,     normal (0, 0, 1), texCoords (0, 1)
 
         // Back face
-        -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, // Bottom-left,  normal (0, 0, -1)
-        1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f,  // Bottom-right, normal (0, 0, -1)
-        1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f,   // Top-right,    normal (0, 0, -1)
-        -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f,  // Top-left,     normal (0, 0, -1)
+        -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, // Bottom-left,  normal (0, 0, -1), texCoords (0, 0)
+        1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,  // Bottom-right, normal (0, 0, -1), texCoords (1, 0)
+        1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,   // Top-right,    normal (0, 0, -1), texCoords (1, 1)
+        -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,  // Top-left,     normal (0, 0, -1), texCoords (0, 1)
 
         // Left face
-        -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, // Bottom-left,  normal (-1, 0, 0)
-        -1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 0.0f,  // Top-left,     normal (-1, 0, 0)
-        -1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f,   // Top-right,    normal (-1, 0, 0)
-        -1.0f, -1.0f, 1.0f, -1.0f, 0.0f, 0.0f,  // Bottom-right, normal (-1, 0, 0)
+        -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left,  normal (-1, 0, 0), texCoords (0, 0)
+        -1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,  // Top-left,     normal (-1, 0, 0), texCoords (1, 0)
+        -1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // Top-right,    normal (-1, 0, 0), texCoords (1, 1)
+        -1.0f, -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,  // Bottom-right, normal (-1, 0, 0), texCoords (0, 1)
 
         // Right face
-        1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, // Bottom-left,  normal (1, 0, 0)
-        1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f,  // Top-left,     normal (1, 0, 0)
-        1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,   // Top-right,    normal (1, 0, 0)
-        1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f,  // Bottom-right, normal (1, 0, 0)
+        1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left,  normal (1, 0, 0), texCoords (0, 0)
+        1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,  // Top-left,     normal (1, 0, 0), texCoords (1, 0)
+        1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // Top-right,    normal (1, 0, 0), texCoords (1, 1)
+        1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,  // Bottom-right, normal (1, 0, 0), texCoords (0, 1)
 
         // Top face
-        -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, // Bottom-left,  normal (0, 1, 0)
-        1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f,  // Bottom-right, normal (0, 1, 0)
-        1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f,   // Top-right,    normal (0, 1, 0)
-        -1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f,  // Top-left,     normal (0, 1, 0)
+        -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, // Bottom-left,  normal (0, 1, 0), texCoords (0, 0)
+        1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,  // Bottom-right, normal (0, 1, 0), texCoords (1, 0)
+        1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,   // Top-right,    normal (0, 1, 0), texCoords (1, 1)
+        -1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,  // Top-left,     normal (0, 1, 0), texCoords (0, 1)
 
         // Bottom face
-        -1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, // Bottom-left,  normal (0, -1, 0)
-        1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f,  // Bottom-right, normal (0, -1, 0)
-        1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f,   // Top-right,    normal (0, -1, 0)
-        -1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f   // Top-left,     normal (0, -1, 0)
+        -1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f, // Bottom-left,  normal (0, -1, 0), texCoords (0, 0)
+        1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,  // Bottom-right, normal (0, -1, 0), texCoords (1, 0)
+        1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,   // Top-right,    normal (0, -1, 0), texCoords (1, 1)
+        -1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f   // Top-left,     normal (0, -1, 0), texCoords (0, 1)
     };
 
     std::vector<unsigned int> indices = {
@@ -63,19 +63,25 @@ private:
 
     std::vector<Core::VertexLayout> layout = {
         {3, GL_FLOAT}, // position
-        {3, GL_FLOAT}  // normal
+        {3, GL_FLOAT}, // normal
+        {2, GL_FLOAT}, // texture coords
     };
 
     // OBJECTS
-
     std::unique_ptr<Camera> camera; // Camera
 
     std::unique_ptr<Mesh<float>> mesh; // GameObject
     glm::vec3 objectPosition = glm::vec3(0.0f, 0.0f, -10.0f);
 
-    std::unique_ptr<Core::Shader> shader; // Shader
-    std::unique_ptr<Light> light;         // Light
-    std::unique_ptr<Material> material;   // Material
+    std::unique_ptr<Shader> shader; // Shader
+    std::vector<std::string> shaderPaths = {
+        "assets/shaders/basic.vert",
+        "assets/shaders/basic.frag",
+    };
+
+    std::unique_ptr<Light> light;       // Light
+    std::unique_ptr<Material> material; // Material
+    std::unique_ptr<Texture> texture;   // Texture
 
 public:
     Sandbox() : Application("Sandbox", 800, 600)
@@ -85,9 +91,10 @@ public:
 
         camera = std::make_unique<Camera>(glm::vec3(4, 4, 3), glm::vec3(-25, 230, 0), *p_Window.get());
         mesh = std::make_unique<Mesh<float>>(vertices, layout, indices);
-        shader = std::make_unique<Core::Shader>("assets/shaders/basic.glsl", true);
+        shader = std::make_unique<Shader>(shaderPaths);
         light = std::make_unique<Light>();
         material = std::make_unique<Material>(glm::vec3(0.8f, 0.3f, 0.2f));
+        texture = std::make_unique<Texture>("assets/textures/test.png");
     }
 
     void Update(double deltaTime) override
@@ -109,26 +116,38 @@ public:
 
         shader->Bind();
 
+        // Object
         shader->SetUniformMatrix4f("u_Model", glm::translate(glm::mat4(1.0f), objectPosition));
+
+        // Camera
         shader->SetUniformMatrix4f("u_View", camera->GetView());
         shader->SetUniformMatrix4f("u_Projection", camera->GetProjection());
 
+        // Light
         shader->SetUniform3f("u_LightPosition", light->GetPosition());
         shader->SetUniform3f("u_LightColor", light->GetColor());
 
+        // Material
         shader->SetUniform3f("u_BaseColor", material->GetColor());
-        shader->SetUniform1f("u_Ambient", material->GetAmbient());
-        shader->SetUniform1f("u_Diffuse", material->GetDiffuse());
-        shader->SetUniform1f("u_Specular", material->GetSpecular());
+        shader->SetUniform3f("u_Ambient", material->GetAmbient());
+        shader->SetUniform3f("u_Diffuse", material->GetDiffuse());
+        shader->SetUniform3f("u_Specular", material->GetSpecular());
+        shader->SetUniform1f("u_Shininess", material->GetShininess());
 
+        // Texture
+        // texture->Bind();
+
+        // Mesh
         mesh->GetVAO().Bind();
         mesh->GetIBO().Bind();
 
+        // Render
         GLCall(glDrawElements(GL_TRIANGLES, mesh->GetIBO().GetCount(), GL_UNSIGNED_INT, nullptr));
 
         mesh->GetIBO().Unbind();
         mesh->GetVAO().Unbind();
 
+        // texture->Unbind();
         shader->Unbind();
     }
 
@@ -136,12 +155,16 @@ public:
     {
         // UI RENDERING
         ImGui::Begin("Controller");
-        ImGui::SliderFloat3("Object Position", &objectPosition.x, -10.0f, 10.0f);
-        ImGui::Text("Camera Position: (%.2f, %.2f, %.2f)", camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
+        ImGui::Text("FPS: %.2f | DT: %.6f", m_FPS, m_DeltaTime);
+        ImGui::Separator();
+        ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Object");
+        ImGui::SliderFloat3("Obj Position", &objectPosition.x, -10.0f, 10.0f);
+        ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Camera");
+        ImGui::Text("Cam Position: (%.2f, %.2f, %.2f)", camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
         ImGui::Text("Pitch: %.2f | Yaw: %.2f | Roll: %.2f)", camera->GetRotation().x, camera->GetRotation().y, camera->GetRotation().z);
-        ImGui::Text("Camera Up: (%.2f, %.2f, %.2f)", camera->GetUp().x, camera->GetUp().y, camera->GetUp().z);
-        ImGui::Text("Camera Front: (%.2f, %.2f, %.2f)", camera->GetFront().x, camera->GetFront().y, camera->GetFront().z);
-        ImGui::Text("Camera Right: (%.2f, %.2f, %.2f)", camera->GetRight().x, camera->GetRight().y, camera->GetRight().z);
+        ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Light");
+        ImGui::SliderFloat3("Light Position", &light->Position().x, -100.0f, 100.0f);
+        ImGui::SliderFloat3("Light Color", &light->Color().x, 0.0f, 1.0f);
         ImGui::End();
     }
 

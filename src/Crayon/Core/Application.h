@@ -12,6 +12,7 @@ namespace Crayon::Core
 
     protected:
         std::shared_ptr<Window> p_Window;
+        double m_DeltaTime, m_FPS;
 
     public:
         Application(const char *title, int width, int height);

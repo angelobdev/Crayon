@@ -31,5 +31,15 @@ namespace Crayon::Graphics
         {
             return m_Color;
         }
+
+        glm::vec3 &Position()
+        {
+            return m_Position;
+        }
+
+        glm::vec3 &Color()
+        {
+            return m_Color;
+        }
     };
 }

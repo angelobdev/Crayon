@@ -1,30 +1,23 @@
 #pragma once
 
+#include "Core/OpenGL.h"
 #include "Crayon/Utils/ResourceLoader.h"
-#include "OpenGL.h"
 
-namespace Crayon::Graphics::Core
+namespace Crayon::Graphics
 {
     class Shader
     {
     private:
         unsigned int m_Program; // Shader Program memory address
-        // TODO: Caching for uniforms
+        std::map<std::string, int> m_UniformCache;
 
     public:
         // CONSTRUCTOR & DESTRUCTOR
 
-        Shader(const std::string &sourceCode, bool isPath = true)
+        Shader(std::vector<std::string> &shaderPaths)
         {
-            if (isPath)
-            {
-                std::string fileContent = ResourceLoader::LoadFileAsString(sourceCode);
-                this->m_Program = Shader::CompileProgram(fileContent.c_str());
-            }
-            else
-            {
-                this->m_Program = Shader::CompileProgram(sourceCode.c_str());
-            }
+            this->m_Program = Shader::CompileProgram(shaderPaths);
+            this->m_UniformCache = std::map<std::string, int>();
         }
 
         ~Shader()
@@ -55,127 +48,127 @@ namespace Crayon::Graphics::Core
 
         // UNIFORMS
 
-        int GetUniformLocation(const std::string &name) const
+    private:
+        int GetUniformLocation(const std::string &name)
         {
+            // Checking if uniform location is cached...
+            if (m_UniformCache.contains(name))
+            {
+                return m_UniformCache.at(name);
+            }
+
+            // Binding shader to search through...
             if (!this->IsBound())
             {
                 this->Bind();
                 CRAYON_CORE_WARN("Shaders should be bound before setting a uniform!");
             }
 
+            // Searching location...
             int location = glGetUniformLocation(this->m_Program, name.c_str());
+
             if (location == -1)
-                spdlog::error("Unable to find uniform: {}", name);
+            {
+                // Not found...
+                CRAYON_CORE_ERROR("Unable to find uniform: {}", name);
+            }
+            else
+            {
+                // Caching...
+                m_UniformCache.insert_or_assign(name, location);
+            }
+
             return location;
         }
 
-        void SetUniform1i(const std::string &name, const int data) const
+    public:
+        void SetUniform1i(const std::string &name, const int data)
         {
             int location = this->GetUniformLocation(name);
             glUniform1i(location, data);
         }
 
-        void SetUniform1f(const std::string &name, const float &data) const
+        void SetUniform1f(const std::string &name, const float &data)
         {
             int location = this->GetUniformLocation(name);
             glUniform1f(location, data);
         }
 
-        void SetUniform2f(const std::string &name, const glm::vec2 &data) const
+        void SetUniform2f(const std::string &name, const glm::vec2 &data)
         {
             int location = this->GetUniformLocation(name);
             glUniform2f(location, data.x, data.y);
         }
 
-        void SetUniform3f(const std::string &name, const glm::vec3 &data) const
+        void SetUniform3f(const std::string &name, const glm::vec3 &data)
         {
             int location = this->GetUniformLocation(name);
             glUniform3f(location, data.x, data.y, data.z);
         }
 
-        void SetUniform4f(const std::string &name, const glm::vec4 &data) const
+        void SetUniform4f(const std::string &name, const glm::vec4 &data)
         {
             int location = this->GetUniformLocation(name);
             glUniform4f(location, data.x, data.y, data.z, data.w);
         }
 
-        void SetUniformMatrix2f(const std::string &name, const glm::mat2 &data) const
+        void SetUniformMatrix2f(const std::string &name, const glm::mat2 &data)
         {
             int location = this->GetUniformLocation(name);
             glUniformMatrix2fv(location, 1, GL_FALSE, &data[0][0]);
         }
 
-        void SetUniformMatrix3f(const std::string &name, const glm::mat3 &data) const
+        void SetUniformMatrix3f(const std::string &name, const glm::mat3 &data)
         {
             int location = this->GetUniformLocation(name);
             glUniformMatrix3fv(location, 1, GL_FALSE, &data[0][0]);
         }
 
-        void SetUniformMatrix4f(const std::string &name, const glm::mat4 &data) const
+        void SetUniformMatrix4f(const std::string &name, const glm::mat4 &data)
         {
             int location = this->GetUniformLocation(name);
             glUniformMatrix4fv(location, 1, GL_FALSE, &data[0][0]);
         }
 
     private:
-        // UTILITIES
-
-        static std::string GetShaderSourceCode(const GLenum &type, const char *sourceCode)
-        {
-            // Getting type breakpoint
-            std::string breakpoint;
-            switch (type)
-            {
-            case GL_VERTEX_SHADER:
-                breakpoint = "VERTEX";
-                break;
-            case GL_FRAGMENT_SHADER:
-                breakpoint = "FRAGMENT";
-                break;
-            default:
-                spdlog::error("Unable to parse shader of this type");
-                break;
-            }
-
-            // Parsing sourceCode
-            std::stringstream content;
-            std::istringstream sourceCodeStream(sourceCode);
-
-            std::string line;
-            bool write = false;
-            while (std::getline(sourceCodeStream, line))
-            {
-                if (write)
-                {
-                    if (line.find("END") != std::string::npos)
-                        break;
-
-                    // Writing
-                    content << line << std::endl;
-                }
-
-                if (line.find(breakpoint) != std::string::npos)
-                    write = true;
-            }
-
-            // Retuning shader content
-            return content.str();
-        }
-
-        static unsigned int CompileProgram(const char *sourceCode)
+        static unsigned int CompileProgram(std::vector<std::string> &shaderPaths)
         {
             // Creating program
             unsigned int shaderProgram = glCreateProgram();
 
-            // Creating Vertex Shader
-            unsigned int vs = CompileShader(GL_VERTEX_SHADER,
-                                            Shader::GetShaderSourceCode(GL_VERTEX_SHADER, sourceCode).c_str());
-            GLCall(glAttachShader(shaderProgram, vs));
+            // Compiling and attaching shaders
+            int shaderTypesCount = 0;
+            unsigned int *shaders = new unsigned int[shaderTypesCount];
+            for (const auto &shaderPath : shaderPaths)
+            {
+                CRAYON_CORE_TRACE("Compiling shader at: {}", shaderPath);
 
-            // Creating fragment shader
-            unsigned int fs = CompileShader(GL_FRAGMENT_SHADER,
-                                            Shader::GetShaderSourceCode(GL_FRAGMENT_SHADER, sourceCode).c_str());
-            GLCall(glAttachShader(shaderProgram, fs));
+                // Getting shader type
+                std::string extension = shaderPath.substr(shaderPath.find_last_of('.') + 1);
+                GLenum shaderType;
+
+                if (extension == "vert")
+                {
+                    shaderType = GL_VERTEX_SHADER;
+                }
+                else if (extension == "frag")
+                {
+                    shaderType = GL_FRAGMENT_SHADER;
+                }
+                else
+                {
+                    CRAYON_CORE_ERROR("The {} file extension for shaders is not yet supported!", extension);
+                }
+
+                // Getting shader code
+                const std::string &shaderCode = ResourceLoader::LoadFileAsString(shaderPath);
+
+                // Compiling shader
+                unsigned int shader = CompileShader(shaderType, shaderCode.c_str());
+                GLCall(glAttachShader(shaderProgram, shader));
+
+                shaderTypesCount++;
+            }
 
             // Compiling program
             GLCall(glLinkProgram(shaderProgram));
@@ -197,17 +190,21 @@ namespace Crayon::Graphics::Core
             GLCall(glValidateProgram(shaderProgram)); // Validating program
 
             // Deleting shaders
-            GLCall(glDeleteShader(vs));
-            GLCall(glDeleteShader(fs));
+            for (int i = 0; i < shaderTypesCount; i++)
+            {
+                GLCall(glDeleteShader(shaders[i]));
+            }
+
+            delete[] shaders;
 
             return shaderProgram;
         }
 
-        static unsigned int CompileShader(GLenum type, const char *shaderSourceCode)
+        static unsigned int CompileShader(const GLenum type, const char *shaderCode)
         {
             // Creating shader
-            unsigned int shader = glCreateShader(type);
-            GLCall(glShaderSource(shader, 1, &shaderSourceCode, nullptr)); // Linking source code
+            unsigned int shader = glCreateShader(static_cast<GLenum>(type));
+            GLCall(glShaderSource(shader, 1, &shaderCode, nullptr)); // Linking source code
 
             // Compiling shader
             GLCall(glCompileShader(shader));
@@ -223,7 +220,11 @@ namespace Crayon::Graphics::Core
                 char *message = (char *)alloca(length * sizeof(char));
                 GLCall(glGetShaderInfoLog(shader, length, &length, message));
 
-                spdlog::error(message); // Logging error if necessary
+                CRAYON_CORE_ERROR(message);
+            }
+            else
+            {
+                CRAYON_CORE_TRACE("Shader compiled successfully!");
             }
 
             return shader;

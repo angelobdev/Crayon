@@ -5,7 +5,7 @@ namespace Crayon::Core
     // CONSTRUCTOR & DESTRUCTOR
 
     Application::Application(const char *title, int width, int height)
-        : p_Window(std::make_shared<Window>(title, width, height))
+        : p_Window(std::make_shared<Window>(title, width, height)), m_DeltaTime(0.01f), m_FPS(0)
     {
     }
 
@@ -30,7 +30,6 @@ namespace Crayon::Core
     {
         this->Initialize();
 
-        double deltaTime = 0.01f;
         while (!p_Window->ShouldClose())
         {
             double start = glfwGetTime();
@@ -39,7 +38,7 @@ namespace Crayon::Core
             p_Window->PollEvents();
 
             // Update
-            this->Update(deltaTime);
+            this->Update(m_DeltaTime);
 
             // Rendering
             this->Render();
@@ -52,7 +51,8 @@ namespace Crayon::Core
             p_Window->SwapBuffers();
 
             double end = glfwGetTime();
-            deltaTime = end - start;
+            m_DeltaTime = end - start;
+            m_FPS = 1.0f / m_DeltaTime;
         }
 
         // Terminating ImGui

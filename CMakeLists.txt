@@ -31,8 +31,6 @@ add_library(Crayon STATIC
         src/Crayon/Graphics/Core/VertexArray.h
         src/Crayon/Graphics/Core/VertexBuffer.h        
         src/Crayon/Graphics/Core/IndexBuffer.h
-        src/Crayon/Graphics/Core/Shader.h
-        src/Crayon/Graphics/Core/Texture.h
 
         src/Crayon/Graphics/Camera.h
         src/Crayon/Graphics/Directions.cpp
@@ -42,6 +40,8 @@ add_library(Crayon STATIC
         src/Crayon/Graphics/Material.h
         src/Crayon/Graphics/Mesh.h
         src/Crayon/Graphics/Renderer.h
+        src/Crayon/Graphics/Shader.h
+        src/Crayon/Graphics/Texture.h
 
         src/Crayon/Graphics/GUI/imgui_impl_glfw.cpp
         src/Crayon/Graphics/GUI/imgui_impl_glfw.h

@@ -8,36 +8,21 @@ namespace Crayon::Graphics
     {
     private:
         glm::vec3 m_Color;
-        float ambient, diffuse, specular;
+        glm::vec3 m_Ambient, m_Diffuse, m_Specular;
+        float m_Shininess;
 
     public:
-        Material()
-            : m_Color(1.0f), ambient(0.5f), diffuse(0.5f), specular(0.5f) {}
+        Material(const glm::vec3 &color,
+                 const glm::vec3 &ambient = glm::vec3(0.1f),
+                 const glm::vec3 &diffuse = glm::vec3(0.5f),
+                 const glm::vec3 &specular = glm::vec3(0.5f),
+                 float shininess = 32.0f)
+            : m_Color(color), m_Ambient(ambient), m_Diffuse(diffuse), m_Specular(specular), m_Shininess(shininess) {}
 
-        Material(const glm::vec3 &color)
-            : m_Color(color), ambient(0.5f), diffuse(0.5f), specular(0.5f) {}
-
-        Material(const glm::vec3 &color, float ambient, float diffuse, float specular)
-            : m_Color(color), ambient(ambient), diffuse(diffuse), specular(specular) {}
-
-        const glm::vec3 &GetColor() const
-        {
-            return m_Color;
-        }
-
-        float GetAmbient() const
-        {
-            return ambient;
-        }
-
-        float GetDiffuse() const
-        {
-            return diffuse;
-        }
-
-        float GetSpecular() const
-        {
-            return specular;
-        }
+        glm::vec3 GetColor() const { return m_Color; }
+        glm::vec3 GetAmbient() const { return m_Ambient; }
+        glm::vec3 GetDiffuse() const { return m_Diffuse; }
+        glm::vec3 GetSpecular() const { return m_Specular; }
+        float GetShininess() const { return m_Shininess; }
     };
 }
