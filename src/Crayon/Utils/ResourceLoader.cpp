@@ -13,16 +13,7 @@ namespace Crayon
                                 (std::istreambuf_iterator<char>()));
         file.close();
 
-        auto extension = fileName.substr(fileName.find('.') + 1, fileName.length() - 1);
-
-        if (extension == "png" || extension == "jpg")
-        {
-            CRAYON_CORE_TRACE("Loaded {} image from {}", extension, fileName);
-        }
-        else
-        {
-            CRAYON_CORE_TRACE("Loaded content from {}:\n{}", fileName, fileContent);
-        }
+        CRAYON_CORE_TRACE("Loaded file from {}", fileName);
 
         return fileContent;
     }

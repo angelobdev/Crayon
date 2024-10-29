@@ -46,6 +46,12 @@ static bool GLErrorLog(const char *function, const char *file, const int &line)
         case GL_INVALID_OPERATION:
             error_name = "GL_INVALID_OPERATION";
             break;
+        case GL_STACK_OVERFLOW:
+            error_name = "GL_STACK_OVERFLOW";
+            break;
+        case GL_STACK_UNDERFLOW:
+            error_name = "GL_STACK_UNDERFLOW";
+            break;
         case GL_OUT_OF_MEMORY:
             error_name = "GL_OUT_OF_MEMORY";
             break;
